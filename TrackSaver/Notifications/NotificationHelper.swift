@@ -2,11 +2,20 @@ import Foundation
 import UserNotifications
 
 enum NotificationHelper {
+    private static let center = UNUserNotificationCenter.current()
+    private static let foregroundDelegate = ForegroundNotificationDelegate()
+
+    static func configureOnLaunch() {
+        center.delegate = foregroundDelegate
+        Task {
+            _ = await ensureAuthorization()
+        }
+    }
+
     static func notify(title: String, body: String, artworkURLString: String? = nil) async {
-        let center = UNUserNotificationCenter.current()
-        let settings = await center.notificationSettings()
-        if settings.authorizationStatus != .authorized {
-            _ = try? await center.requestAuthorization(options: [.alert, .sound])
+        center.delegate = foregroundDelegate
+        guard await ensureAuthorization() else {
+            return
         }
 
         let content = UNMutableNotificationContent()
@@ -50,6 +59,31 @@ enum NotificationHelper {
             return try? UNNotificationAttachment(identifier: UUID().uuidString, url: tempURL, options: nil)
         } catch {
             return nil
+        }
+    }
+
+    private static func ensureAuthorization() async -> Bool {
+        let settings = await center.notificationSettings()
+
+        switch settings.authorizationStatus {
+        case .authorized, .provisional, .ephemeral:
+            return true
+        case .notDetermined:
+            return (try? await center.requestAuthorization(options: [.alert, .sound, .badge])) ?? false
+        case .denied:
+            return false
+        @unknown default:
+            return false
+        }
+    }
+
+    private final class ForegroundNotificationDelegate: NSObject, UNUserNotificationCenterDelegate {
+        func userNotificationCenter(
+            _ center: UNUserNotificationCenter,
+            willPresent notification: UNNotification,
+            withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void
+        ) {
+            completionHandler([.banner, .list, .sound])
         }
     }
 }

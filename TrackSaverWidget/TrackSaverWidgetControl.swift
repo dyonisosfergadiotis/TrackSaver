@@ -20,7 +20,7 @@ struct TrackSaverWidgetControl: ControlWidget {
                 Label {
                     Text("Track speichern")
                 } icon: {
-                    Image("Save_Icon")
+                    Image(systemName: "text.append")
                 }
             }
         }

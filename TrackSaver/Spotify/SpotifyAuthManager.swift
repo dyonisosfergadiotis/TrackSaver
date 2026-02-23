@@ -147,11 +147,20 @@ final class SpotifyAuthManager: NSObject {
 
 extension SpotifyAuthManager: ASWebAuthenticationPresentationContextProviding {
     func presentationAnchor(for session: ASWebAuthenticationSession) -> ASPresentationAnchor {
-        guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
-              let window = windowScene.windows.first else {
-            return ASPresentationAnchor()
+        let windowScene = UIApplication.shared.connectedScenes
+            .compactMap { $0 as? UIWindowScene }
+            .first(where: { $0.activationState == .foregroundActive })
+            ?? UIApplication.shared.connectedScenes.compactMap { $0 as? UIWindowScene }.first
+
+        guard let windowScene else {
+            preconditionFailure("No UIWindowScene available for ASWebAuthenticationSession presentation")
         }
-        return window
+
+        if let window = windowScene.windows.first(where: \.isKeyWindow) ?? windowScene.windows.first {
+            return window
+        }
+
+        return ASPresentationAnchor(windowScene: windowScene)
     }
 }
 

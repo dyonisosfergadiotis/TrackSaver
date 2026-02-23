@@ -4,32 +4,47 @@ import Combine
 final class ImageLoader: ObservableObject {
     @Published var image: UIImage?
 
-    private let url: URL
+    private var url: URL
     private var task: URLSessionDataTask?
 
     init(url: URL) {
         self.url = url
     }
 
+    func updateURL(_ newURL: URL) {
+        guard newURL != url else { return }
+        cancel()
+        url = newURL
+        image = nil
+        load()
+    }
+
     func load() {
-        if let cached = ImageCache.shared.image(for: url) {
+        let currentURL = url
+
+        if let cached = ImageCache.shared.image(for: currentURL) {
             image = cached
             return
         }
 
-        var request = URLRequest(url: url)
+        task?.cancel()
+        var request = URLRequest(url: currentURL)
         request.cachePolicy = .returnCacheDataElseLoad
 
         task = URLSession.shared.dataTask(with: request) { [weak self] data, response, _ in
             guard let self, let data, let image = UIImage(data: data) else { return }
-            ImageCache.shared.store(image: image, data: data, response: response, for: self.url)
-            DispatchQueue.main.async { self.image = image }
+            ImageCache.shared.store(image: image, data: data, response: response, for: currentURL)
+            DispatchQueue.main.async {
+                guard self.url == currentURL else { return }
+                self.image = image
+            }
         }
         task?.resume()
     }
 
     func cancel() {
         task?.cancel()
+        task = nil
     }
 }
 
@@ -75,6 +90,9 @@ struct RemoteImage<Placeholder: View>: View {
             }
         }
         .onAppear { loader.load() }
+        .onChange(of: url) { _, newURL in
+            loader.updateURL(newURL)
+        }
         .onDisappear { loader.cancel() }
     }
 }

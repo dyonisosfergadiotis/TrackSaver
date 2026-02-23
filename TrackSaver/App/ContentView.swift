@@ -12,13 +12,19 @@ struct RootView: View {
     var body: some View {
         Group {
             if !hasCompletedWalkthrough {
-                WalkthroughView(isComplete: $hasCompletedWalkthrough)
+                WalkthroughView(
+                    isComplete: $hasCompletedWalkthrough,
+                    isReturningUser: false
+                )
             } else if isCheckingToken {
                 ProgressView("Prüfe Anmeldung…")
             } else if spotifyLoggedIn {
                 MainView()
             } else {
-                LoginView()
+                WalkthroughView(
+                    isComplete: $hasCompletedWalkthrough,
+                    isReturningUser: true
+                )
             }
         }
         .task { await checkSessionOnLaunch() }

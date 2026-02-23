@@ -35,7 +35,6 @@ public actor SpotifyAPI {
     private let baseURL = URL(string: "https://api.spotify.com/v1")!
     private let session: URLSession
     private let decoder: JSONDecoder
-    private let keychain = KeychainStore()
 
     public init(session: URLSession = .shared) {
         self.session = session
@@ -240,29 +239,41 @@ public actor SpotifyAPI {
         let (data, response) = try await session.data(for: request)
         guard let http = response as? HTTPURLResponse else { throw SpotifyAPIError.invalidResponse }
         if http.statusCode == 401 {
-            keychain.deleteAccessToken()
+            await MainActor.run {
+                KeychainStore().deleteAccessToken()
+            }
         }
         return (data, http)
     }
 
     private func ensureAccessToken() async throws -> String {
-        // Shared token refresh logic for app + widget.
-        if let access = keychain.readAccessToken(),
-           let exp = keychain.readAccessTokenExpiration(),
-           exp.timeIntervalSinceNow > 60 {
+        let cachedToken = await MainActor.run { () -> String? in
+            let keychain = KeychainStore()
+            guard let access = keychain.readAccessToken(),
+                  let exp = keychain.readAccessTokenExpiration(),
+                  exp.timeIntervalSinceNow > 60 else {
+                return nil
+            }
             return access
         }
+        if let cachedToken {
+            return cachedToken
+        }
 
-        guard let refresh = keychain.readRefreshToken() else {
+        let refreshToken = await MainActor.run { KeychainStore().readRefreshToken() }
+        guard let refreshToken else {
             throw SpotifyAPIError.missingAccessToken
         }
 
-        let tokenResponse = try await refreshAccessToken(refreshToken: refresh)
-        keychain.saveAccessToken(tokenResponse.access_token)
-        let newRefresh = tokenResponse.refresh_token ?? refresh
-        keychain.saveRefreshToken(newRefresh)
+        let tokenResponse = try await refreshAccessToken(refreshToken: refreshToken)
+        let newRefresh = tokenResponse.refresh_token ?? refreshToken
         let exp = Date().addingTimeInterval(TimeInterval(tokenResponse.expires_in))
-        keychain.saveAccessTokenExpiration(exp)
+        await MainActor.run {
+            let keychain = KeychainStore()
+            keychain.saveAccessToken(tokenResponse.access_token)
+            keychain.saveRefreshToken(newRefresh)
+            keychain.saveAccessTokenExpiration(exp)
+        }
         return tokenResponse.access_token
     }
 
@@ -281,7 +292,7 @@ public actor SpotifyAPI {
         let params: [String: String] = [
             "grant_type": "refresh_token",
             "refresh_token": refreshToken,
-            "client_id": SpotifyConfig.clientId
+            "client_id": await MainActor.run { SpotifyConfig.clientId }
         ]
         request.httpBody = formBody(params)
 
