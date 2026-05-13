@@ -1,8 +1,15 @@
 import SwiftUI
 import Combine
+#if canImport(UIKit)
+import UIKit
+typealias PlatformImage = UIImage
+#elseif canImport(AppKit)
+import AppKit
+typealias PlatformImage = NSImage
+#endif
 
 final class ImageLoader: ObservableObject {
-    @Published var image: UIImage?
+    @Published var image: PlatformImage?
 
     private var url: URL
     private var task: URLSessionDataTask?
@@ -20,6 +27,10 @@ final class ImageLoader: ObservableObject {
     }
 
     func load() {
+        if image != nil || task != nil {
+            return
+        }
+
         let currentURL = url
 
         if let cached = ImageCache.shared.image(for: currentURL) {
@@ -32,10 +43,21 @@ final class ImageLoader: ObservableObject {
         request.cachePolicy = .returnCacheDataElseLoad
 
         task = URLSession.shared.dataTask(with: request) { [weak self] data, response, _ in
-            guard let self, let data, let image = UIImage(data: data) else { return }
+            guard let self else { return }
+
+            guard let data, let image = PlatformImage(data: data) else {
+                DispatchQueue.main.async {
+                    if self.url == currentURL {
+                        self.task = nil
+                    }
+                }
+                return
+            }
+
             ImageCache.shared.store(image: image, data: data, response: response, for: currentURL)
             DispatchQueue.main.async {
                 guard self.url == currentURL else { return }
+                self.task = nil
                 self.image = image
             }
         }
@@ -53,15 +75,25 @@ enum ImageCache {
 }
 
 final class ImageCacheImpl {
-    func image(for url: URL) -> UIImage? {
+    private let decodedImageCache = NSCache<NSURL, PlatformImage>()
+
+    func image(for url: URL) -> PlatformImage? {
+        let key = url as NSURL
+        if let cachedImage = decodedImageCache.object(forKey: key) {
+            return cachedImage
+        }
+
         let request = URLRequest(url: url)
-        if let cached = URLCache.shared.cachedResponse(for: request) {
-            return UIImage(data: cached.data)
+        if let cached = URLCache.shared.cachedResponse(for: request),
+           let image = PlatformImage(data: cached.data) {
+            decodedImageCache.setObject(image, forKey: key)
+            return image
         }
         return nil
     }
 
-    func store(image: UIImage, data: Data, response: URLResponse?, for url: URL) {
+    func store(image: PlatformImage, data: Data, response: URLResponse?, for url: URL) {
+        decodedImageCache.setObject(image, forKey: url as NSURL)
         guard let response else { return }
         let cached = CachedURLResponse(response: response, data: data)
         let request = URLRequest(url: url)
@@ -84,7 +116,7 @@ struct RemoteImage<Placeholder: View>: View {
     var body: some View {
         Group {
             if let image = loader.image {
-                Image(uiImage: image).resizable()
+                platformImage(image)
             } else {
                 placeholder
             }
@@ -94,5 +126,14 @@ struct RemoteImage<Placeholder: View>: View {
             loader.updateURL(newURL)
         }
         .onDisappear { loader.cancel() }
+    }
+
+    @ViewBuilder
+    private func platformImage(_ image: PlatformImage) -> some View {
+        #if canImport(UIKit)
+        Image(uiImage: image).resizable()
+        #elseif canImport(AppKit)
+        Image(nsImage: image).resizable()
+        #endif
     }
 }

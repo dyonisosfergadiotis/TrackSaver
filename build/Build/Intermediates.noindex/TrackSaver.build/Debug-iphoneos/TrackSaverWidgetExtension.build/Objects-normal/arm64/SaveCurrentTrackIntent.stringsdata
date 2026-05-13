@@ -1,0 +1,104 @@
+{
+  "source": "/Users/dyonisosfergadiotis/Projekte/TrackSaver/TrackSaver/Intents/SaveCurrentTrackIntent.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "%@",
+        "location": {
+          "startingColumn": 43,
+          "startingLine": 167
+        }
+      },
+      {
+        "comment": "",
+        "key": "Speichern fehlgeschlagen",
+        "location": {
+          "startingColumn": 39,
+          "startingLine": 169
+        }
+      },
+      {
+        "comment": "",
+        "key": "%@ gespeichert",
+        "location": {
+          "startingColumn": 39,
+          "startingLine": 178
+        }
+      },
+      {
+        "comment": "",
+        "key": "Track gespeichert",
+        "location": {
+          "startingColumn": 35,
+          "startingLine": 180
+        }
+      },
+      {
+        "comment": "",
+        "key": "TrackSaver: Aktuellen Song speichern",
+        "location": {
+          "startingColumn": 49,
+          "startingLine": 185
+        }
+      },
+      {
+        "comment": "",
+        "key": "Speichert den aktuell spielenden Song über TrackSaver in die Playlist des aktiven Schicht-Segments.",
+        "location": {
+          "startingColumn": 27,
+          "startingLine": 189
+        }
+      },
+      {
+        "comment": "",
+        "key": "TrackSaver: Schicht 1 speichern",
+        "location": {
+          "startingColumn": 49,
+          "startingLine": 199
+        }
+      },
+      {
+        "comment": "",
+        "key": "Speichert den aktuellen Song in die für Schicht 1 konfigurierte Playlist.",
+        "location": {
+          "startingColumn": 27,
+          "startingLine": 203
+        }
+      },
+      {
+        "comment": "",
+        "key": "TrackSaver: Schicht 2 speichern",
+        "location": {
+          "startingColumn": 49,
+          "startingLine": 213
+        }
+      },
+      {
+        "comment": "",
+        "key": "Speichert den aktuellen Song in die für Schicht 2 konfigurierte Playlist.",
+        "location": {
+          "startingColumn": 27,
+          "startingLine": 217
+        }
+      },
+      {
+        "comment": "",
+        "key": "TrackSaver: Schicht 3 speichern",
+        "location": {
+          "startingColumn": 49,
+          "startingLine": 227
+        }
+      },
+      {
+        "comment": "",
+        "key": "Speichert den aktuellen Song in die für Schicht 3 konfigurierte Playlist.",
+        "location": {
+          "startingColumn": 27,
+          "startingLine": 231
+        }
+      }
+    ]
+  },
+  "version": 1
+}

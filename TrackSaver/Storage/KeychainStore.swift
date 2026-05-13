@@ -1,7 +1,13 @@
 import Foundation
+import LocalAuthentication
 import Security
 
 public struct KeychainStore {
+    public enum AuthenticationUIBehavior {
+        case allow
+        case fail
+    }
+
     private let service = "TrackSaverSpotify"
     private let accessTokenAccount = "accessToken"
     private let refreshTokenAccount = "refreshToken"
@@ -11,31 +17,47 @@ public struct KeychainStore {
 
     public init() {}
 
+    private var prefersDataProtectionKeychain: Bool {
+#if os(macOS)
+        true
+#else
+        false
+#endif
+    }
+
     // MARK: - Public API
 
-    public func readAccessToken() -> String? {
-        readString(account: accessTokenAccount)
+    public func hasAuthTokens(authenticationUI: AuthenticationUIBehavior = .allow) -> Bool {
+        readAccessToken(authenticationUI: authenticationUI) != nil ||
+        readRefreshToken(authenticationUI: authenticationUI) != nil
     }
 
-    public func readRefreshToken() -> String? {
-        readString(account: refreshTokenAccount)
+    public func readAccessToken(authenticationUI: AuthenticationUIBehavior = .allow) -> String? {
+        readString(account: accessTokenAccount, authenticationUI: authenticationUI)
     }
 
-    public func readAccessTokenExpiration() -> Date? {
-        guard let raw = readString(account: expirationAccount), let interval = TimeInterval(raw) else { return nil }
+    public func readRefreshToken(authenticationUI: AuthenticationUIBehavior = .allow) -> String? {
+        readString(account: refreshTokenAccount, authenticationUI: authenticationUI)
+    }
+
+    public func readAccessTokenExpiration(authenticationUI: AuthenticationUIBehavior = .allow) -> Date? {
+        guard let raw = readString(account: expirationAccount, authenticationUI: authenticationUI),
+              let interval = TimeInterval(raw) else {
+            return nil
+        }
         return Date(timeIntervalSince1970: interval)
     }
 
     public func saveAccessToken(_ token: String) {
-        saveString(token, account: accessTokenAccount)
+        _ = saveString(token, account: accessTokenAccount)
     }
 
     public func saveRefreshToken(_ token: String) {
-        saveString(token, account: refreshTokenAccount)
+        _ = saveString(token, account: refreshTokenAccount)
     }
 
     public func saveAccessTokenExpiration(_ date: Date) {
-        saveString(String(date.timeIntervalSince1970), account: expirationAccount)
+        _ = saveString(String(date.timeIntervalSince1970), account: expirationAccount)
     }
 
     public func deleteAllTokens() {
@@ -49,91 +71,318 @@ public struct KeychainStore {
         delete(account: expirationAccount)
     }
 
-    public func migrateLegacyTokensIfNeeded() {
-        // If shared-group tokens already exist, no work needed.
-        if readString(account: accessTokenAccount) != nil || readString(account: refreshTokenAccount) != nil {
-            return
-        }
-        if let legacyAccess = readString(account: accessTokenAccount, includeAccessGroup: false) {
-            saveString(legacyAccess, account: accessTokenAccount)
-        }
-        if let legacyRefresh = readString(account: refreshTokenAccount, includeAccessGroup: false) {
-            saveString(legacyRefresh, account: refreshTokenAccount)
-        }
-        if let legacyExp = readString(account: expirationAccount, includeAccessGroup: false) {
-            saveString(legacyExp, account: expirationAccount)
-        }
+    public func migrateLegacyTokensIfNeeded(authenticationUI: AuthenticationUIBehavior = .allow) {
+        migrateLegacyStringIfNeeded(account: accessTokenAccount, authenticationUI: authenticationUI)
+        migrateLegacyStringIfNeeded(account: refreshTokenAccount, authenticationUI: authenticationUI)
+        migrateLegacyStringIfNeeded(account: expirationAccount, authenticationUI: authenticationUI)
     }
 
     // MARK: - Helpers
 
-    private func readString(account: String) -> String? {
-        readString(account: account, includeAccessGroup: true)
+    private func readString(account: String, authenticationUI: AuthenticationUIBehavior) -> String? {
+        if let sharedValue = readStoredString(
+            account: account,
+            includeAccessGroup: true,
+            synchronizable: kSecAttrSynchronizableAny,
+            useDataProtectionKeychain: prefersDataProtectionKeychain,
+            authenticationUI: authenticationUI
+        ) {
+            return sharedValue
+        }
+        if let sharedValue = readStoredString(
+            account: account,
+            includeAccessGroup: true,
+            synchronizable: nil,
+            useDataProtectionKeychain: prefersDataProtectionKeychain,
+            authenticationUI: authenticationUI
+        ) {
+            return sharedValue
+        }
+        if let localValue = readStoredString(
+            account: account,
+            includeAccessGroup: false,
+            synchronizable: kSecAttrSynchronizableAny,
+            useDataProtectionKeychain: prefersDataProtectionKeychain,
+            authenticationUI: authenticationUI
+        ) {
+            return localValue
+        }
+        return readStoredString(
+            account: account,
+            includeAccessGroup: false,
+            synchronizable: nil,
+            useDataProtectionKeychain: prefersDataProtectionKeychain,
+            authenticationUI: authenticationUI
+        )
     }
 
-    private func readString(account: String, includeAccessGroup: Bool) -> String? {
-        func query(includeAccessGroup: Bool) -> [String: Any] {
-            var q: [String: Any] = [
-                kSecClass as String: kSecClassGenericPassword,
-                kSecAttrService as String: service,
-                kSecAttrAccount as String: account,
-                kSecReturnData as String: true,
-                kSecMatchLimit as String: kSecMatchLimitOne
-            ]
-            if includeAccessGroup { q[kSecAttrAccessGroup as String] = accessGroup }
-            return q
+    private func migrateLegacyStringIfNeeded(account: String, authenticationUI: AuthenticationUIBehavior) {
+        guard readString(account: account, authenticationUI: authenticationUI) == nil else { return }
+        guard let legacyValue = readLegacyString(
+            account: account,
+            includeAccessGroup: true,
+            authenticationUI: authenticationUI
+        ) ?? readLegacyString(
+            account: account,
+            includeAccessGroup: false,
+            authenticationUI: authenticationUI
+        ) else {
+            return
         }
 
+        let status = saveString(legacyValue, account: account)
+#if os(macOS)
+        if status == errSecSuccess {
+            deleteLegacy(account: account)
+        }
+#endif
+    }
+
+    private func readLegacyString(
+        account: String,
+        includeAccessGroup: Bool,
+        authenticationUI: AuthenticationUIBehavior
+    ) -> String? {
+        readStoredString(
+            account: account,
+            includeAccessGroup: includeAccessGroup,
+            synchronizable: nil,
+            useDataProtectionKeychain: false,
+            authenticationUI: authenticationUI
+        )
+    }
+
+    private func readStoredString(
+        account: String,
+        includeAccessGroup: Bool,
+        synchronizable: CFTypeRef?,
+        useDataProtectionKeychain: Bool,
+        authenticationUI: AuthenticationUIBehavior
+    ) -> String? {
         var item: CFTypeRef?
-        let status = SecItemCopyMatching(query(includeAccessGroup: includeAccessGroup) as CFDictionary, &item)
+        let status = SecItemCopyMatching(
+            baseQuery(
+                account: account,
+                includeAccessGroup: includeAccessGroup,
+                synchronizable: synchronizable,
+                useDataProtectionKeychain: useDataProtectionKeychain,
+                returnData: true,
+                authenticationUI: authenticationUI
+            ) as CFDictionary,
+            &item
+        )
         guard status == errSecSuccess, let data = item as? Data else { return nil }
         return String(data: data, encoding: .utf8)
     }
 
-    private func saveString(_ value: String, account: String) {
-        guard let data = value.data(using: .utf8) else { return }
+    @discardableResult
+    private func saveString(_ value: String, account: String) -> OSStatus {
+        guard let data = value.data(using: .utf8) else { return errSecParam }
 
-        func baseQuery(includeAccessGroup: Bool) -> [String: Any] {
-            var q: [String: Any] = [
-                kSecClass as String: kSecClassGenericPassword,
-                kSecAttrService as String: service,
-                kSecAttrAccount as String: account
-            ]
-            if includeAccessGroup { q[kSecAttrAccessGroup as String] = accessGroup }
-            return q
-        }
+        let primaryStatus = saveString(
+            data,
+            account: account,
+            includeAccessGroup: true,
+            synchronizable: kCFBooleanTrue,
+            useDataProtectionKeychain: prefersDataProtectionKeychain
+        )
+        let sharedLocalStatus = saveString(
+            data,
+            account: account,
+            includeAccessGroup: true,
+            synchronizable: nil,
+            useDataProtectionKeychain: prefersDataProtectionKeychain
+        )
+        let appLocalStatus = saveString(
+            data,
+            account: account,
+            includeAccessGroup: false,
+            synchronizable: nil,
+            useDataProtectionKeychain: prefersDataProtectionKeychain
+        )
 
-        var addQuery = baseQuery(includeAccessGroup: true)
-        addQuery[kSecValueData as String] = data
-        var status = SecItemAdd(addQuery as CFDictionary, nil)
+        if primaryStatus == errSecSuccess { return primaryStatus }
+        if sharedLocalStatus == errSecSuccess { return sharedLocalStatus }
+        if appLocalStatus == errSecSuccess { return appLocalStatus }
+        return primaryStatus
+    }
+
+    @discardableResult
+    private func saveString(
+        _ data: Data,
+        account: String,
+        includeAccessGroup: Bool,
+        synchronizable: CFTypeRef?,
+        useDataProtectionKeychain: Bool
+    ) -> OSStatus {
+        var status = addOrUpdate(
+            data,
+            account: account,
+            includeAccessGroup: includeAccessGroup,
+            synchronizable: synchronizable,
+            useDataProtectionKeychain: useDataProtectionKeychain
+        )
         if status == errSecDuplicateItem {
-            let attrs: [String: Any] = [kSecValueData as String: data]
-            status = SecItemUpdate(baseQuery(includeAccessGroup: true) as CFDictionary, attrs as CFDictionary)
+            status = update(
+                data,
+                account: account,
+                includeAccessGroup: includeAccessGroup,
+                synchronizable: synchronizable,
+                useDataProtectionKeychain: useDataProtectionKeychain
+            )
         }
-
-        if status == errSecMissingEntitlement || status == errSecNoSuchKeychain || status == errSecInteractionNotAllowed {
-            addQuery = baseQuery(includeAccessGroup: false)
-            addQuery[kSecValueData as String] = data
-            status = SecItemAdd(addQuery as CFDictionary, nil)
-            if status == errSecDuplicateItem {
-                let attrs: [String: Any] = [kSecValueData as String: data]
-                _ = SecItemUpdate(baseQuery(includeAccessGroup: false) as CFDictionary, attrs as CFDictionary)
-            }
-        }
+        return status
     }
 
     private func delete(account: String) {
-        func query(includeAccessGroup: Bool) -> [String: Any] {
-            var q: [String: Any] = [
-                kSecClass as String: kSecClassGenericPassword,
-                kSecAttrService as String: service,
-                kSecAttrAccount as String: account
-            ]
-            if includeAccessGroup { q[kSecAttrAccessGroup as String] = accessGroup }
-            return q
-        }
+        deleteStoredItems(account: account, useDataProtectionKeychain: prefersDataProtectionKeychain)
+#if os(macOS)
+        deleteLegacy(account: account)
+#endif
+    }
 
-        SecItemDelete(query(includeAccessGroup: true) as CFDictionary)
-        SecItemDelete(query(includeAccessGroup: false) as CFDictionary)
+    private func deleteStoredItems(account: String, useDataProtectionKeychain: Bool) {
+        SecItemDelete(
+            baseQuery(
+                account: account,
+                includeAccessGroup: true,
+                synchronizable: kCFBooleanTrue,
+                useDataProtectionKeychain: useDataProtectionKeychain
+            ) as CFDictionary
+        )
+        SecItemDelete(
+            baseQuery(
+                account: account,
+                includeAccessGroup: true,
+                synchronizable: nil,
+                useDataProtectionKeychain: useDataProtectionKeychain
+            ) as CFDictionary
+        )
+        SecItemDelete(
+            baseQuery(
+                account: account,
+                includeAccessGroup: false,
+                synchronizable: kCFBooleanTrue,
+                useDataProtectionKeychain: useDataProtectionKeychain
+            ) as CFDictionary
+        )
+        SecItemDelete(
+            baseQuery(
+                account: account,
+                includeAccessGroup: false,
+                synchronizable: nil,
+                useDataProtectionKeychain: useDataProtectionKeychain
+            ) as CFDictionary
+        )
+    }
+
+    private func deleteLegacy(account: String) {
+        SecItemDelete(
+            baseQuery(
+                account: account,
+                includeAccessGroup: true,
+                synchronizable: nil,
+                useDataProtectionKeychain: false
+            ) as CFDictionary
+        )
+        SecItemDelete(
+            baseQuery(
+                account: account,
+                includeAccessGroup: false,
+                synchronizable: nil,
+                useDataProtectionKeychain: false
+            ) as CFDictionary
+        )
+    }
+
+    private func addOrUpdate(
+        _ data: Data,
+        account: String,
+        includeAccessGroup: Bool,
+        synchronizable: CFTypeRef?,
+        useDataProtectionKeychain: Bool
+    ) -> OSStatus {
+        var query = baseQuery(
+            account: account,
+            includeAccessGroup: includeAccessGroup,
+            synchronizable: synchronizable,
+            useDataProtectionKeychain: useDataProtectionKeychain
+        )
+        query[kSecValueData as String] = data
+        query[kSecAttrAccessible as String] = kSecAttrAccessibleAfterFirstUnlock
+        return SecItemAdd(query as CFDictionary, nil)
+    }
+
+    private func update(
+        _ data: Data,
+        account: String,
+        includeAccessGroup: Bool,
+        synchronizable: CFTypeRef?,
+        useDataProtectionKeychain: Bool
+    ) -> OSStatus {
+        let attrs: [String: Any] = [kSecValueData as String: data]
+        return SecItemUpdate(
+            baseQuery(
+                account: account,
+                includeAccessGroup: includeAccessGroup,
+                synchronizable: synchronizable,
+                useDataProtectionKeychain: useDataProtectionKeychain
+            ) as CFDictionary,
+            attrs as CFDictionary
+        )
+    }
+
+    private func shouldRetryWithoutSynchronizable(_ status: OSStatus) -> Bool {
+        switch status {
+        case errSecMissingEntitlement,
+             errSecNoSuchKeychain,
+             errSecInteractionNotAllowed,
+             errSecItemNotFound,
+             errSecNotAvailable,
+             errSecParam:
+            return true
+        default:
+            return false
+        }
+    }
+
+    private func shouldRetryWithoutAccessGroup(_ status: OSStatus) -> Bool {
+        shouldRetryWithoutSynchronizable(status)
+    }
+
+    private func baseQuery(
+        account: String,
+        includeAccessGroup: Bool,
+        synchronizable: CFTypeRef?,
+        useDataProtectionKeychain: Bool,
+        returnData: Bool = false,
+        authenticationUI: AuthenticationUIBehavior = .allow
+    ) -> [String: Any] {
+        var query: [String: Any] = [
+            kSecClass as String: kSecClassGenericPassword,
+            kSecAttrService as String: service,
+            kSecAttrAccount as String: account
+        ]
+        if includeAccessGroup {
+            query[kSecAttrAccessGroup as String] = accessGroup
+        }
+        if let synchronizable {
+            query[kSecAttrSynchronizable as String] = synchronizable
+        }
+        if useDataProtectionKeychain {
+            query[kSecUseDataProtectionKeychain as String] = true
+        }
+        if returnData {
+            query[kSecReturnData as String] = true
+            query[kSecMatchLimit as String] = kSecMatchLimitOne
+        }
+#if os(macOS)
+        if authenticationUI == .fail {
+            let context = LAContext()
+            context.interactionNotAllowed = true
+            query[kSecUseAuthenticationContext as String] = context
+        }
+#endif
+        return query
     }
 }

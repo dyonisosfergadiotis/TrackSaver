@@ -1,0 +1,121 @@
+{
+  "" : {
+    "const-values" : "/Users/dyonisosfergadiotis/Projekte/TrackSaver/build/TrackSaver.build/Release-iphoneos/TrackSaver.build/Objects-normal/arm64/TrackSaver-primary.swiftconstvalues",
+    "dependencies" : "/Users/dyonisosfergadiotis/Projekte/TrackSaver/build/TrackSaver.build/Release-iphoneos/TrackSaver.build/Objects-normal/arm64/TrackSaver-primary.d",
+    "diagnostics" : "/Users/dyonisosfergadiotis/Projekte/TrackSaver/build/TrackSaver.build/Release-iphoneos/TrackSaver.build/Objects-normal/arm64/TrackSaver-primary.dia",
+    "emit-module-dependencies" : "/Users/dyonisosfergadiotis/Projekte/TrackSaver/build/TrackSaver.build/Release-iphoneos/TrackSaver.build/Objects-normal/arm64/TrackSaver-primary-emit-module.d",
+    "emit-module-diagnostics" : "/Users/dyonisosfergadiotis/Projekte/TrackSaver/build/TrackSaver.build/Release-iphoneos/TrackSaver.build/Objects-normal/arm64/TrackSaver-primary-emit-module.dia",
+    "pch" : "/Users/dyonisosfergadiotis/Projekte/TrackSaver/build/TrackSaver.build/Release-iphoneos/TrackSaver.build/Objects-normal/arm64/TrackSaver-primary-Bridging-header.pch",
+    "swift-dependencies" : "/Users/dyonisosfergadiotis/Projekte/TrackSaver/build/TrackSaver.build/Release-iphoneos/TrackSaver.build/Objects-normal/arm64/TrackSaver-primary.swiftdeps"
+  },
+  "/Users/dyonisosfergadiotis/Projekte/TrackSaver/TrackSaver/Actions/CloudHistorySyncService.swift" : {
+    "index-unit-output-path" : "/TrackSaver.build/Release-iphoneos/TrackSaver.build/Objects-normal/arm64/CloudHistorySyncService.o",
+    "llvm-bc" : "/Users/dyonisosfergadiotis/Projekte/TrackSaver/build/TrackSaver.build/Release-iphoneos/TrackSaver.build/Objects-normal/arm64/CloudHistorySyncService.bc",
+    "object" : "/Users/dyonisosfergadiotis/Projekte/TrackSaver/build/TrackSaver.build/Release-iphoneos/TrackSaver.build/Objects-normal/arm64/CloudHistorySyncService.o"
+  },
+  "/Users/dyonisosfergadiotis/Projekte/TrackSaver/TrackSaver/Actions/TrackSaveService.swift" : {
+    "index-unit-output-path" : "/TrackSaver.build/Release-iphoneos/TrackSaver.build/Objects-normal/arm64/TrackSaveService.o",
+    "llvm-bc" : "/Users/dyonisosfergadiotis/Projekte/TrackSaver/build/TrackSaver.build/Release-iphoneos/TrackSaver.build/Objects-normal/arm64/TrackSaveService.bc",
+    "object" : "/Users/dyonisosfergadiotis/Projekte/TrackSaver/build/TrackSaver.build/Release-iphoneos/TrackSaver.build/Objects-normal/arm64/TrackSaveService.o"
+  },
+  "/Users/dyonisosfergadiotis/Projekte/TrackSaver/TrackSaver/App/ContentView.swift" : {
+    "index-unit-output-path" : "/TrackSaver.build/Release-iphoneos/TrackSaver.build/Objects-normal/arm64/ContentView.o",
+    "llvm-bc" : "/Users/dyonisosfergadiotis/Projekte/TrackSaver/build/TrackSaver.build/Release-iphoneos/TrackSaver.build/Objects-normal/arm64/ContentView.bc",
+    "object" : "/Users/dyonisosfergadiotis/Projekte/TrackSaver/build/TrackSaver.build/Release-iphoneos/TrackSaver.build/Objects-normal/arm64/ContentView.o"
+  },
+  "/Users/dyonisosfergadiotis/Projekte/TrackSaver/TrackSaver/App/TrackSaverApp.swift" : {
+    "index-unit-output-path" : "/TrackSaver.build/Release-iphoneos/TrackSaver.build/Objects-normal/arm64/TrackSaverApp.o",
+    "llvm-bc" : "/Users/dyonisosfergadiotis/Projekte/TrackSaver/build/TrackSaver.build/Release-iphoneos/TrackSaver.build/Objects-normal/arm64/TrackSaverApp.bc",
+    "object" : "/Users/dyonisosfergadiotis/Projekte/TrackSaver/build/TrackSaver.build/Release-iphoneos/TrackSaver.build/Objects-normal/arm64/TrackSaverApp.o"
+  },
+  "/Users/dyonisosfergadiotis/Projekte/TrackSaver/TrackSaver/Intents/AddCurrentTrackIntent.swift" : {
+    "index-unit-output-path" : "/TrackSaver.build/Release-iphoneos/TrackSaver.build/Objects-normal/arm64/AddCurrentTrackIntent.o",
+    "llvm-bc" : "/Users/dyonisosfergadiotis/Projekte/TrackSaver/build/TrackSaver.build/Release-iphoneos/TrackSaver.build/Objects-normal/arm64/AddCurrentTrackIntent.bc",
+    "object" : "/Users/dyonisosfergadiotis/Projekte/TrackSaver/build/TrackSaver.build/Release-iphoneos/TrackSaver.build/Objects-normal/arm64/AddCurrentTrackIntent.o"
+  },
+  "/Users/dyonisosfergadiotis/Projekte/TrackSaver/TrackSaver/Intents/SaveCurrentTrackIntent.swift" : {
+    "index-unit-output-path" : "/TrackSaver.build/Release-iphoneos/TrackSaver.build/Objects-normal/arm64/SaveCurrentTrackIntent.o",
+    "llvm-bc" : "/Users/dyonisosfergadiotis/Projekte/TrackSaver/build/TrackSaver.build/Release-iphoneos/TrackSaver.build/Objects-normal/arm64/SaveCurrentTrackIntent.bc",
+    "object" : "/Users/dyonisosfergadiotis/Projekte/TrackSaver/build/TrackSaver.build/Release-iphoneos/TrackSaver.build/Objects-normal/arm64/SaveCurrentTrackIntent.o"
+  },
+  "/Users/dyonisosfergadiotis/Projekte/TrackSaver/TrackSaver/Intents/TrackSaverAppShortcuts.swift" : {
+    "index-unit-output-path" : "/TrackSaver.build/Release-iphoneos/TrackSaver.build/Objects-normal/arm64/TrackSaverAppShortcuts.o",
+    "llvm-bc" : "/Users/dyonisosfergadiotis/Projekte/TrackSaver/build/TrackSaver.build/Release-iphoneos/TrackSaver.build/Objects-normal/arm64/TrackSaverAppShortcuts.bc",
+    "object" : "/Users/dyonisosfergadiotis/Projekte/TrackSaver/build/TrackSaver.build/Release-iphoneos/TrackSaver.build/Objects-normal/arm64/TrackSaverAppShortcuts.o"
+  },
+  "/Users/dyonisosfergadiotis/Projekte/TrackSaver/TrackSaver/Notifications/NotificationHelper.swift" : {
+    "index-unit-output-path" : "/TrackSaver.build/Release-iphoneos/TrackSaver.build/Objects-normal/arm64/NotificationHelper.o",
+    "llvm-bc" : "/Users/dyonisosfergadiotis/Projekte/TrackSaver/build/TrackSaver.build/Release-iphoneos/TrackSaver.build/Objects-normal/arm64/NotificationHelper.bc",
+    "object" : "/Users/dyonisosfergadiotis/Projekte/TrackSaver/build/TrackSaver.build/Release-iphoneos/TrackSaver.build/Objects-normal/arm64/NotificationHelper.o"
+  },
+  "/Users/dyonisosfergadiotis/Projekte/TrackSaver/TrackSaver/Spotify/OAuthPKCE.swift" : {
+    "index-unit-output-path" : "/TrackSaver.build/Release-iphoneos/TrackSaver.build/Objects-normal/arm64/OAuthPKCE.o",
+    "llvm-bc" : "/Users/dyonisosfergadiotis/Projekte/TrackSaver/build/TrackSaver.build/Release-iphoneos/TrackSaver.build/Objects-normal/arm64/OAuthPKCE.bc",
+    "object" : "/Users/dyonisosfergadiotis/Projekte/TrackSaver/build/TrackSaver.build/Release-iphoneos/TrackSaver.build/Objects-normal/arm64/OAuthPKCE.o"
+  },
+  "/Users/dyonisosfergadiotis/Projekte/TrackSaver/TrackSaver/Spotify/SpotifyAPI.swift" : {
+    "index-unit-output-path" : "/TrackSaver.build/Release-iphoneos/TrackSaver.build/Objects-normal/arm64/SpotifyAPI.o",
+    "llvm-bc" : "/Users/dyonisosfergadiotis/Projekte/TrackSaver/build/TrackSaver.build/Release-iphoneos/TrackSaver.build/Objects-normal/arm64/SpotifyAPI.bc",
+    "object" : "/Users/dyonisosfergadiotis/Projekte/TrackSaver/build/TrackSaver.build/Release-iphoneos/TrackSaver.build/Objects-normal/arm64/SpotifyAPI.o"
+  },
+  "/Users/dyonisosfergadiotis/Projekte/TrackSaver/TrackSaver/Spotify/SpotifyAuthManager.swift" : {
+    "index-unit-output-path" : "/TrackSaver.build/Release-iphoneos/TrackSaver.build/Objects-normal/arm64/SpotifyAuthManager.o",
+    "llvm-bc" : "/Users/dyonisosfergadiotis/Projekte/TrackSaver/build/TrackSaver.build/Release-iphoneos/TrackSaver.build/Objects-normal/arm64/SpotifyAuthManager.bc",
+    "object" : "/Users/dyonisosfergadiotis/Projekte/TrackSaver/build/TrackSaver.build/Release-iphoneos/TrackSaver.build/Objects-normal/arm64/SpotifyAuthManager.o"
+  },
+  "/Users/dyonisosfergadiotis/Projekte/TrackSaver/TrackSaver/Spotify/SpotifyConfig.swift" : {
+    "index-unit-output-path" : "/TrackSaver.build/Release-iphoneos/TrackSaver.build/Objects-normal/arm64/SpotifyConfig.o",
+    "llvm-bc" : "/Users/dyonisosfergadiotis/Projekte/TrackSaver/build/TrackSaver.build/Release-iphoneos/TrackSaver.build/Objects-normal/arm64/SpotifyConfig.bc",
+    "object" : "/Users/dyonisosfergadiotis/Projekte/TrackSaver/build/TrackSaver.build/Release-iphoneos/TrackSaver.build/Objects-normal/arm64/SpotifyConfig.o"
+  },
+  "/Users/dyonisosfergadiotis/Projekte/TrackSaver/TrackSaver/Storage/KeychainStore.swift" : {
+    "index-unit-output-path" : "/TrackSaver.build/Release-iphoneos/TrackSaver.build/Objects-normal/arm64/KeychainStore.o",
+    "llvm-bc" : "/Users/dyonisosfergadiotis/Projekte/TrackSaver/build/TrackSaver.build/Release-iphoneos/TrackSaver.build/Objects-normal/arm64/KeychainStore.bc",
+    "object" : "/Users/dyonisosfergadiotis/Projekte/TrackSaver/build/TrackSaver.build/Release-iphoneos/TrackSaver.build/Objects-normal/arm64/KeychainStore.o"
+  },
+  "/Users/dyonisosfergadiotis/Projekte/TrackSaver/TrackSaver/Storage/SharedDefaults.swift" : {
+    "index-unit-output-path" : "/TrackSaver.build/Release-iphoneos/TrackSaver.build/Objects-normal/arm64/SharedDefaults.o",
+    "llvm-bc" : "/Users/dyonisosfergadiotis/Projekte/TrackSaver/build/TrackSaver.build/Release-iphoneos/TrackSaver.build/Objects-normal/arm64/SharedDefaults.bc",
+    "object" : "/Users/dyonisosfergadiotis/Projekte/TrackSaver/build/TrackSaver.build/Release-iphoneos/TrackSaver.build/Objects-normal/arm64/SharedDefaults.o"
+  },
+  "/Users/dyonisosfergadiotis/Projekte/TrackSaver/TrackSaver/UI/AppBackground.swift" : {
+    "index-unit-output-path" : "/TrackSaver.build/Release-iphoneos/TrackSaver.build/Objects-normal/arm64/AppBackground.o",
+    "llvm-bc" : "/Users/dyonisosfergadiotis/Projekte/TrackSaver/build/TrackSaver.build/Release-iphoneos/TrackSaver.build/Objects-normal/arm64/AppBackground.bc",
+    "object" : "/Users/dyonisosfergadiotis/Projekte/TrackSaver/build/TrackSaver.build/Release-iphoneos/TrackSaver.build/Objects-normal/arm64/AppBackground.o"
+  },
+  "/Users/dyonisosfergadiotis/Projekte/TrackSaver/TrackSaver/UI/RemoteImage.swift" : {
+    "index-unit-output-path" : "/TrackSaver.build/Release-iphoneos/TrackSaver.build/Objects-normal/arm64/RemoteImage.o",
+    "llvm-bc" : "/Users/dyonisosfergadiotis/Projekte/TrackSaver/build/TrackSaver.build/Release-iphoneos/TrackSaver.build/Objects-normal/arm64/RemoteImage.bc",
+    "object" : "/Users/dyonisosfergadiotis/Projekte/TrackSaver/build/TrackSaver.build/Release-iphoneos/TrackSaver.build/Objects-normal/arm64/RemoteImage.o"
+  },
+  "/Users/dyonisosfergadiotis/Projekte/TrackSaver/TrackSaver/UI/Sheets/PlaylistSheetView.swift" : {
+    "index-unit-output-path" : "/TrackSaver.build/Release-iphoneos/TrackSaver.build/Objects-normal/arm64/PlaylistSheetView.o",
+    "llvm-bc" : "/Users/dyonisosfergadiotis/Projekte/TrackSaver/build/TrackSaver.build/Release-iphoneos/TrackSaver.build/Objects-normal/arm64/PlaylistSheetView.bc",
+    "object" : "/Users/dyonisosfergadiotis/Projekte/TrackSaver/build/TrackSaver.build/Release-iphoneos/TrackSaver.build/Objects-normal/arm64/PlaylistSheetView.o"
+  },
+  "/Users/dyonisosfergadiotis/Projekte/TrackSaver/TrackSaver/UI/StyleKit.swift" : {
+    "index-unit-output-path" : "/TrackSaver.build/Release-iphoneos/TrackSaver.build/Objects-normal/arm64/StyleKit.o",
+    "llvm-bc" : "/Users/dyonisosfergadiotis/Projekte/TrackSaver/build/TrackSaver.build/Release-iphoneos/TrackSaver.build/Objects-normal/arm64/StyleKit.bc",
+    "object" : "/Users/dyonisosfergadiotis/Projekte/TrackSaver/build/TrackSaver.build/Release-iphoneos/TrackSaver.build/Objects-normal/arm64/StyleKit.o"
+  },
+  "/Users/dyonisosfergadiotis/Projekte/TrackSaver/TrackSaver/UI/Views/MainView.swift" : {
+    "index-unit-output-path" : "/TrackSaver.build/Release-iphoneos/TrackSaver.build/Objects-normal/arm64/MainView.o",
+    "llvm-bc" : "/Users/dyonisosfergadiotis/Projekte/TrackSaver/build/TrackSaver.build/Release-iphoneos/TrackSaver.build/Objects-normal/arm64/MainView.bc",
+    "object" : "/Users/dyonisosfergadiotis/Projekte/TrackSaver/build/TrackSaver.build/Release-iphoneos/TrackSaver.build/Objects-normal/arm64/MainView.o"
+  },
+  "/Users/dyonisosfergadiotis/Projekte/TrackSaver/TrackSaver/UI/Views/SettingsView.swift" : {
+    "index-unit-output-path" : "/TrackSaver.build/Release-iphoneos/TrackSaver.build/Objects-normal/arm64/SettingsView.o",
+    "llvm-bc" : "/Users/dyonisosfergadiotis/Projekte/TrackSaver/build/TrackSaver.build/Release-iphoneos/TrackSaver.build/Objects-normal/arm64/SettingsView.bc",
+    "object" : "/Users/dyonisosfergadiotis/Projekte/TrackSaver/build/TrackSaver.build/Release-iphoneos/TrackSaver.build/Objects-normal/arm64/SettingsView.o"
+  },
+  "/Users/dyonisosfergadiotis/Projekte/TrackSaver/TrackSaver/UI/Views/WalkthroughView.swift" : {
+    "index-unit-output-path" : "/TrackSaver.build/Release-iphoneos/TrackSaver.build/Objects-normal/arm64/WalkthroughView.o",
+    "llvm-bc" : "/Users/dyonisosfergadiotis/Projekte/TrackSaver/build/TrackSaver.build/Release-iphoneos/TrackSaver.build/Objects-normal/arm64/WalkthroughView.bc",
+    "object" : "/Users/dyonisosfergadiotis/Projekte/TrackSaver/build/TrackSaver.build/Release-iphoneos/TrackSaver.build/Objects-normal/arm64/WalkthroughView.o"
+  },
+  "/Users/dyonisosfergadiotis/Projekte/TrackSaver/build/TrackSaver.build/Release-iphoneos/TrackSaver.build/DerivedSources/GeneratedAssetSymbols.swift" : {
+    "index-unit-output-path" : "/TrackSaver.build/Release-iphoneos/TrackSaver.build/Objects-normal/arm64/GeneratedAssetSymbols.o",
+    "llvm-bc" : "/Users/dyonisosfergadiotis/Projekte/TrackSaver/build/TrackSaver.build/Release-iphoneos/TrackSaver.build/Objects-normal/arm64/GeneratedAssetSymbols.bc",
+    "object" : "/Users/dyonisosfergadiotis/Projekte/TrackSaver/build/TrackSaver.build/Release-iphoneos/TrackSaver.build/Objects-normal/arm64/GeneratedAssetSymbols.o"
+  }
+}

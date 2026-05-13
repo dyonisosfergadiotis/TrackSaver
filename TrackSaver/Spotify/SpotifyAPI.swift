@@ -35,10 +35,19 @@ public actor SpotifyAPI {
     private let baseURL = URL(string: "https://api.spotify.com/v1")!
     private let session: URLSession
     private let decoder: JSONDecoder
+    private static let formBodyAllowedCharacters: CharacterSet = {
+        var allowed = CharacterSet.alphanumerics
+        allowed.insert(charactersIn: "-._* ")
+        return allowed
+    }()
 
     public init(session: URLSession = .shared) {
         self.session = session
         self.decoder = JSONDecoder()
+    }
+
+    public func refreshSessionIfNeeded(forceRefresh: Bool = false) async throws {
+        _ = try await ensureAccessToken(forceRefresh: forceRefresh)
     }
 
     // MARK: - DTOs
@@ -71,6 +80,10 @@ public actor SpotifyAPI {
     private struct PlaylistsResponse: Codable {
         let items: [Playlist]
         let next: String?
+    }
+
+    private struct PlaylistNameResponse: Codable {
+        let name: String
     }
 
     private struct CurrentlyPlayingResponse: Codable {
@@ -111,6 +124,7 @@ public actor SpotifyAPI {
         public let trackName: String
         public let artistName: String
         public let artworkURL: String?
+        public let trackURI: String?
     }
 
     // MARK: - Public Endpoints
@@ -145,6 +159,23 @@ public actor SpotifyAPI {
         return all
     }
 
+    public func fetchPlaylistName(playlistId: String) async throws -> String {
+        let (data, response) = try await performRequest(
+            path: "/playlists/\(playlistId)",
+            method: "GET",
+            query: [URLQueryItem(name: "fields", value: "name")]
+        )
+        guard (200...299).contains(response.statusCode) else {
+            if response.statusCode == 401 { throw SpotifyAPIError.unauthorized }
+            throw SpotifyAPIError.httpStatus(response.statusCode)
+        }
+        do {
+            return try decoder.decode(PlaylistNameResponse.self, from: data).name
+        } catch {
+            throw SpotifyAPIError.decodingFailed(error)
+        }
+    }
+
     public func addCurrentTrack(playlistId: String) async throws -> AddTrackResult {
         let (data, response) = try await performRequest(path: "/me/player/currently-playing", method: "GET")
         if response.statusCode == 204 { throw SpotifyAPIError.noCurrentTrack }
@@ -174,7 +205,7 @@ public actor SpotifyAPI {
         }
 
         let addBody = try JSONEncoder().encode(AddTracksRequest(uris: [uri]))
-        let (addData, addResponse) = try await performRequest(
+        let (_, addResponse) = try await performRequest(
             path: "/playlists/\(playlistId)/tracks",
             method: "POST",
             body: addBody
@@ -184,12 +215,12 @@ public actor SpotifyAPI {
             throw SpotifyAPIError.httpStatus(addResponse.statusCode)
         }
 
-        _ = addData
         return AddTrackResult(
             trackId: track.id ?? "unknown",
             trackName: track.name ?? "Unbekannter Track",
             artistName: artistName,
-            artworkURL: artworkURL
+            artworkURL: artworkURL,
+            trackURI: track.uri
         )
     }
 
@@ -226,6 +257,15 @@ public actor SpotifyAPI {
     }
 
     private func performRequest(url: URL, method: String, body: Data? = nil) async throws -> (Data, HTTPURLResponse) {
+        try await performRequest(url: url, method: method, body: body, retryUnauthorized: true)
+    }
+
+    private func performRequest(
+        url: URL,
+        method: String,
+        body: Data? = nil,
+        retryUnauthorized: Bool
+    ) async throws -> (Data, HTTPURLResponse) {
         let token = try await ensureAccessToken()
         var request = URLRequest(url: url)
         request.httpMethod = method
@@ -242,11 +282,35 @@ public actor SpotifyAPI {
             await MainActor.run {
                 KeychainStore().deleteAccessToken()
             }
+            if retryUnauthorized {
+                _ = try await ensureAccessToken(forceRefresh: true)
+                return try await performRequest(
+                    url: url,
+                    method: method,
+                    body: body,
+                    retryUnauthorized: false
+                )
+            }
         }
         return (data, http)
     }
 
-    private func ensureAccessToken() async throws -> String {
+    private func ensureAccessToken(forceRefresh: Bool = false) async throws -> String {
+#if os(macOS)
+        await MainActor.run {
+            let keychain = KeychainStore()
+            if !keychain.hasAuthTokens() {
+                keychain.migrateLegacyTokensIfNeeded()
+            }
+        }
+#endif
+
+        if forceRefresh {
+            await MainActor.run {
+                KeychainStore().deleteAccessToken()
+            }
+        }
+
         let cachedToken = await MainActor.run { () -> String? in
             let keychain = KeychainStore()
             guard let access = keychain.readAccessToken(),
@@ -266,12 +330,12 @@ public actor SpotifyAPI {
         }
 
         let tokenResponse = try await refreshAccessToken(refreshToken: refreshToken)
-        let newRefresh = tokenResponse.refresh_token ?? refreshToken
+        let newRefreshToken = tokenResponse.refresh_token ?? refreshToken
         let exp = Date().addingTimeInterval(TimeInterval(tokenResponse.expires_in))
         await MainActor.run {
             let keychain = KeychainStore()
             keychain.saveAccessToken(tokenResponse.access_token)
-            keychain.saveRefreshToken(newRefresh)
+            keychain.saveRefreshToken(newRefreshToken)
             keychain.saveAccessTokenExpiration(exp)
         }
         return tokenResponse.access_token
@@ -279,37 +343,50 @@ public actor SpotifyAPI {
 
     private struct TokenResponse: Decodable {
         let access_token: String
-        let token_type: String
         let expires_in: Int
         let refresh_token: String?
-        let scope: String?
     }
 
     private func refreshAccessToken(refreshToken: String) async throws -> TokenResponse {
         var request = URLRequest(url: URL(string: "https://accounts.spotify.com/api/token")!)
         request.httpMethod = "POST"
         request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
-        let params: [String: String] = [
+        request.httpBody = formBody([
             "grant_type": "refresh_token",
             "refresh_token": refreshToken,
-            "client_id": await MainActor.run { SpotifyConfig.clientId }
-        ]
-        request.httpBody = formBody(params)
+            "client_id": SpotifyConfig.clientId
+        ])
 
         let (data, response) = try await session.data(for: request)
-        guard let http = response as? HTTPURLResponse else { throw SpotifyAPIError.invalidResponse }
+        guard let http = response as? HTTPURLResponse else {
+            throw SpotifyAPIError.invalidResponse
+        }
         guard (200...299).contains(http.statusCode) else {
+            if http.statusCode == 400 || http.statusCode == 401 {
+                throw SpotifyAPIError.unauthorized
+            }
             throw SpotifyAPIError.httpStatus(http.statusCode)
         }
-        do { return try decoder.decode(TokenResponse.self, from: data) }
-        catch { throw SpotifyAPIError.decodingFailed(error) }
+        do {
+            return try decoder.decode(TokenResponse.self, from: data)
+        } catch {
+            throw SpotifyAPIError.decodingFailed(error)
+        }
     }
 
     private func formBody(_ params: [String: String]) -> Data? {
         let encoded = params
-            .map { "\($0.key)=\($0.value.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? "")" }
+            .sorted(by: { $0.key < $1.key })
+            .map { key, value in
+                "\(formURLEncode(key))=\(formURLEncode(value))"
+            }
             .joined(separator: "&")
         return encoded.data(using: .utf8)
+    }
+
+    private func formURLEncode(_ value: String) -> String {
+        let encoded = value.addingPercentEncoding(withAllowedCharacters: Self.formBodyAllowedCharacters) ?? ""
+        return encoded.replacingOccurrences(of: " ", with: "+")
     }
 
     private func makeURL(_ path: String, query: [URLQueryItem]? = nil) -> URL {

@@ -3,10 +3,7 @@ import SwiftUI
 struct WalkthroughView: View {
     @Binding var isComplete: Bool
     let isReturningUser: Bool
-    @AppStorage("SpotifyLoggedIn") private var spotifyLoggedIn = false
-    @AppStorage("AccountUserId") private var accountUserId: String = ""
-    @AppStorage("AccountDisplayName") private var accountDisplayName: String = ""
-    @AppStorage("AccountAvatarURL") private var accountAvatarURL: String = ""
+    let presentation: TrackSaverPresentationStyle
 
     @State private var isLoggingIn = false
     @State private var statusMessage: String?
@@ -25,14 +22,19 @@ struct WalkthroughView: View {
         ),
         .init(
             symbol: "clock.arrow.circlepath",
-            title: "Historie lokal behalten",
-            detail: "Siehst, was du zuletzt gespeichert hast."
+            title: "Historie via iCloud behalten",
+            detail: "Login und Verlauf bleiben auf deinen Geräten synchron."
         )
     ]
 
-    init(isComplete: Binding<Bool>, isReturningUser: Bool = false) {
+    init(
+        isComplete: Binding<Bool>,
+        isReturningUser: Bool = false,
+        presentation: TrackSaverPresentationStyle = .standard
+    ) {
         self._isComplete = isComplete
         self.isReturningUser = isReturningUser
+        self.presentation = presentation
     }
 
     private var headerTitle: String {
@@ -50,6 +52,16 @@ struct WalkthroughView: View {
     }
 
     var body: some View {
+        Group {
+            if presentation == .menuBarPopover {
+                popoverBody
+            } else {
+                standardBody
+            }
+        }
+    }
+
+    private var standardBody: some View {
         NavigationStack {
             ZStack {
                 AppBackground()
@@ -59,7 +71,7 @@ struct WalkthroughView: View {
                         VStack(alignment: .leading, spacing: 8) {
                             Text(headerTitle)
                                 .font(.system(size: 34, weight: .bold, design: .rounded))
-                                .foregroundStyle(.white)
+                                .foregroundStyle(StyleKit.textPrimary)
                                 .lineLimit(1)
                                 .minimumScaleFactor(0.85)
                                 .frame(maxWidth: .infinity, alignment: .leading)
@@ -72,22 +84,36 @@ struct WalkthroughView: View {
                         }
                         .padding(.top, 26)
 
-                        VStack(spacing: 18) {
-                            ForEach(Array(highlights.enumerated()), id: \.element.id) { index, feature in
-                                WalkthroughFeatureRow(feature: feature)
-                                if index < highlights.count - 1 {
-                                    Divider()
-                                        .overlay(StyleKit.strokeSoft)
-                                        .padding(.leading, 42)
+                        GlassCard(style: .hero) {
+                            VStack(alignment: .leading, spacing: 18) {
+                                HStack(spacing: 8) {
+                                    Image(systemName: "sparkles")
+                                        .font(.system(size: 12, weight: .bold))
+                                        .foregroundStyle(StyleKit.accent)
+                                    Text("Schneller Zugriff")
+                                        .font(.system(size: 11, weight: .bold, design: .rounded))
+                                        .tracking(0.8)
+                                        .foregroundStyle(StyleKit.textMuted)
+                                }
+
+                                ForEach(Array(highlights.enumerated()), id: \.element.id) { index, feature in
+                                    WalkthroughFeatureRow(feature: feature)
+                                    if index < highlights.count - 1 {
+                                        Divider()
+                                            .overlay(StyleKit.strokeSoft)
+                                            .padding(.leading, 42)
+                                    }
                                 }
                             }
                         }
 
                         if let statusMessage, !statusMessage.isEmpty {
-                            Text(statusMessage)
-                                .font(.system(size: 13, weight: .medium, design: .rounded))
-                                .foregroundStyle(StyleKit.textMuted)
-                                .fixedSize(horizontal: false, vertical: true)
+                            GlassCard(style: .compact) {
+                                Text(statusMessage)
+                                    .font(.system(size: 13, weight: .medium, design: .rounded))
+                                    .foregroundStyle(StyleKit.textSecondary)
+                                    .fixedSize(horizontal: false, vertical: true)
+                            }
                         }
                     }
                     .padding(.horizontal, 24)
@@ -102,7 +128,7 @@ struct WalkthroughView: View {
                         HStack(spacing: 10) {
                             if isLoggingIn {
                                 ProgressView()
-                                    .tint(.black)
+                                    .tint(StyleKit.textPrimary)
                             } else {
                                 Image(systemName: "music.note")
                                     .font(.system(size: 17, weight: .bold))
@@ -111,23 +137,131 @@ struct WalkthroughView: View {
                                 .font(.system(size: 18, weight: .semibold, design: .rounded))
                         }
                         .frame(maxWidth: .infinity)
-                        .padding(.vertical, 15)
+                        .padding(.vertical, 16)
+                        .background(
+                            LiquidGlassPlate(
+                                cornerRadius: 18,
+                                tint: StyleKit.accent.opacity(0.78),
+                                edgeTint: Color.white.opacity(0.26),
+                                glowColor: StyleKit.glassGlowWarm,
+                                material: .regularMaterial,
+                                shadowOpacity: 0.24,
+                                shadowRadius: 12,
+                                shadowY: 5
+                            )
+                        )
                     }
                     .disabled(isLoggingIn)
-                    .buttonStyle(.borderedProminent)
-                    .tint(StyleKit.accent)
-                    .foregroundStyle(.black)
+                    .opacity(isLoggingIn ? 0.84 : 1)
+                    .foregroundStyle(StyleKit.textPrimary)
                 }
                 .padding(.horizontal, 24)
                 .padding(.top, 8)
                 .padding(.bottom, 12)
                 .background(
-                    Color.black.opacity(0.12)
-                        .blur(radius: 12)
-                    .ignoresSafeArea(edges: .bottom)
+                    Rectangle()
+                        .fill(.ultraThinMaterial)
+                        .overlay(alignment: .top) {
+                            LinearGradient(
+                                colors: [
+                                    StyleKit.glassSpecular.opacity(0.34),
+                                    Color.clear
+                                ],
+                                startPoint: .top,
+                                endPoint: .bottom
+                            )
+                            .frame(height: 24)
+                        }
+                        .ignoresSafeArea(edges: .bottom)
                 )
             }
+            #if !os(macOS)
             .navigationBarHidden(true)
+            #endif
+        }
+    }
+
+    private var popoverBody: some View {
+        ZStack {
+            AppBackground(style: .menuBarPopover)
+
+            VStack(alignment: .leading, spacing: 16) {
+                GlassCard(style: .compact) {
+                    HStack(alignment: .top, spacing: 12) {
+                        ZStack {
+                            RoundedRectangle(cornerRadius: 14, style: .continuous)
+                                .fill(StyleKit.surfaceStrong)
+                            Image(systemName: "music.note.list")
+                                .font(.system(size: 18, weight: .semibold))
+                                .foregroundStyle(StyleKit.accent)
+                        }
+                        .frame(width: 44, height: 44)
+
+                        VStack(alignment: .leading, spacing: 4) {
+                            Text(headerTitle)
+                                .font(.system(size: 20, weight: .bold, design: .rounded))
+                                .foregroundStyle(StyleKit.textPrimary)
+                            Text(headerSubtitle)
+                                .font(.system(size: 12, weight: .medium, design: .rounded))
+                                .foregroundStyle(StyleKit.textSecondary)
+                                .fixedSize(horizontal: false, vertical: true)
+                        }
+                    }
+                }
+
+                GlassCard(style: .compact) {
+                    VStack(alignment: .leading, spacing: 12) {
+                        SectionTitle(title: "Funktionen")
+                        ForEach(Array(highlights.enumerated()), id: \.element.id) { index, feature in
+                            WalkthroughFeatureRow(feature: feature, compact: true)
+                            if index < highlights.count - 1 {
+                                Divider()
+                                    .overlay(StyleKit.strokeSoft)
+                                    .padding(.leading, 38)
+                            }
+                        }
+                    }
+                }
+
+                if let statusMessage, !statusMessage.isEmpty {
+                    GlassCard(style: .compact) {
+                        Text(statusMessage)
+                            .font(.system(size: 12, weight: .medium, design: .rounded))
+                            .foregroundStyle(StyleKit.textSecondary)
+                            .fixedSize(horizontal: false, vertical: true)
+                    }
+                }
+
+                Spacer(minLength: 0)
+
+                Button {
+                    Task { await loginWithSpotify() }
+                } label: {
+                    HStack(spacing: 10) {
+                        if isLoggingIn {
+                            ProgressView()
+                                .controlSize(.small)
+                                .tint(StyleKit.textPrimary)
+                        } else {
+                            Image(systemName: "music.note")
+                                .font(.system(size: 15, weight: .bold))
+                        }
+                        Text(isLoggingIn ? "Anmelden…" : buttonTitle)
+                            .font(.system(size: 14, weight: .bold, design: .rounded))
+                    }
+                    .foregroundStyle(StyleKit.textPrimary)
+                    .frame(maxWidth: .infinity)
+                    .padding(.vertical, 13)
+                    .background(
+                        RoundedRectangle(cornerRadius: 16, style: .continuous)
+                            .fill(StyleKit.accent.opacity(0.82))
+                    )
+                }
+                .buttonStyle(.plain)
+                .disabled(isLoggingIn)
+                .opacity(isLoggingIn ? 0.84 : 1)
+            }
+            .padding(16)
         }
     }
 
@@ -144,15 +278,17 @@ struct WalkthroughView: View {
         do {
             try await auth.login()
             let me = try await SpotifyAPI.shared.fetchMe()
-            accountUserId = me.id
-            accountDisplayName = me.display_name ?? ""
-            accountAvatarURL = me.images?.first?.url ?? ""
-            spotifyLoggedIn = true
+            CloudAccountSyncService.shared.updateLoggedInAccount(
+                userId: me.id,
+                displayName: me.display_name ?? "",
+                avatarURL: me.images?.first?.url ?? ""
+            )
             isComplete = true
         } catch {
-            KeychainStore().deleteAllTokens()
             statusMessage = error.localizedDescription
-            spotifyLoggedIn = false
+            if let apiError = error as? SpotifyAPIError, case .unauthorized = apiError {
+                CloudAccountSyncService.shared.logout()
+            }
         }
     }
 }
@@ -173,20 +309,21 @@ private struct WalkthroughFeature: Identifiable {
 
 private struct WalkthroughFeatureRow: View {
     let feature: WalkthroughFeature
+    var compact: Bool = false
 
     var body: some View {
         HStack(alignment: .top, spacing: 12) {
             Image(systemName: feature.symbol)
-                .font(.system(size: 18, weight: .semibold))
-                .foregroundStyle(.white)
-                .frame(width: 30, height: 30, alignment: .topLeading)
+                .font(.system(size: compact ? 15 : 18, weight: .semibold))
+                .foregroundStyle(StyleKit.textPrimary)
+                .frame(width: compact ? 26 : 30, height: compact ? 26 : 30, alignment: .topLeading)
 
             VStack(alignment: .leading, spacing: 4) {
                 Text(feature.title)
-                    .font(.system(size: 17, weight: .semibold, design: .rounded))
-                    .foregroundStyle(.white)
+                    .font(.system(size: compact ? 14 : 17, weight: .semibold, design: .rounded))
+                    .foregroundStyle(StyleKit.textPrimary)
                 Text(feature.detail)
-                    .font(.system(size: 14, weight: .medium, design: .rounded))
+                    .font(.system(size: compact ? 12 : 14, weight: .medium, design: .rounded))
                     .foregroundStyle(StyleKit.textSecondary)
                     .fixedSize(horizontal: false, vertical: true)
             }

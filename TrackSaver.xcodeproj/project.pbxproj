@@ -7,6 +7,22 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E51104702F742F000006CD39 /* TrackSaver/UI/Views/MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51104802F742F000006CD39 /* TrackSaver/UI/Views/MainView.swift */; };
+		E51104712F742F000006CD39 /* TrackSaver/UI/Views/SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51104812F742F000006CD39 /* TrackSaver/UI/Views/SettingsView.swift */; };
+		E51104722F742F000006CD39 /* TrackSaver/UI/Views/WalkthroughView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51104822F742F000006CD39 /* TrackSaver/UI/Views/WalkthroughView.swift */; };
+		E51104732F742F000006CD39 /* TrackSaver/UI/Sheets/PlaylistSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51104832F742F000006CD39 /* TrackSaver/UI/Sheets/PlaylistSheetView.swift */; };
+		E51104742F742F000006CD39 /* TrackSaver/UI/AppBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51104842F742F000006CD39 /* TrackSaver/UI/AppBackground.swift */; };
+		E51104752F742F000006CD39 /* TrackSaver/UI/RemoteImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51104852F742F000006CD39 /* TrackSaver/UI/RemoteImage.swift */; };
+		E51104762F742F000006CD39 /* TrackSaver/UI/StyleKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51104862F742F000006CD39 /* TrackSaver/UI/StyleKit.swift */; };
+		E51104772F742F000006CD39 /* TrackSaver/Spotify/SpotifyAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51104872F742F000006CD39 /* TrackSaver/Spotify/SpotifyAPI.swift */; };
+		E51104782F742F000006CD39 /* TrackSaver/Spotify/SpotifyConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51104882F742F000006CD39 /* TrackSaver/Spotify/SpotifyConfig.swift */; };
+		E51104792F742F000006CD39 /* TrackSaver/Spotify/OAuthPKCE.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51104892F742F000006CD39 /* TrackSaver/Spotify/OAuthPKCE.swift */; };
+		E511047A2F742F000006CD39 /* TrackSaver/Spotify/SpotifyAuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E511048A2F742F000006CD39 /* TrackSaver/Spotify/SpotifyAuthManager.swift */; };
+		E511047B2F742F000006CD39 /* TrackSaver/Storage/SharedDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = E511048B2F742F000006CD39 /* TrackSaver/Storage/SharedDefaults.swift */; };
+		E511047C2F742F000006CD39 /* TrackSaver/Storage/KeychainStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = E511048C2F742F000006CD39 /* TrackSaver/Storage/KeychainStore.swift */; };
+		E511047D2F742F000006CD39 /* TrackSaver/Notifications/NotificationHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E511048D2F742F000006CD39 /* TrackSaver/Notifications/NotificationHelper.swift */; };
+		E511047E2F742F000006CD39 /* TrackSaver/Actions/TrackSaveService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E511048E2F742F000006CD39 /* TrackSaver/Actions/TrackSaveService.swift */; };
+		E51104922F7432000006CD39 /* TrackSaver/Actions/CloudHistorySyncService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51104932F7432000006CD39 /* TrackSaver/Actions/CloudHistorySyncService.swift */; };
 		E57CAE8A2F360A4D00C49A4E /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E57CAE892F360A4D00C49A4E /* WidgetKit.framework */; };
 		E57CAE8C2F360A4D00C49A4E /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E57CAE8B2F360A4D00C49A4E /* SwiftUI.framework */; };
 		E57CAE9B2F360A4E00C49A4E /* TrackSaverWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = E57CAE872F360A4D00C49A4E /* TrackSaverWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -37,6 +53,23 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		E51104612F7423040006CD39 /* TrackSaver For Mac.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "TrackSaver For Mac.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		E51104802F742F000006CD39 /* TrackSaver/UI/Views/MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackSaver/UI/Views/MainView.swift; sourceTree = "<group>"; };
+		E51104812F742F000006CD39 /* TrackSaver/UI/Views/SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackSaver/UI/Views/SettingsView.swift; sourceTree = "<group>"; };
+		E51104822F742F000006CD39 /* TrackSaver/UI/Views/WalkthroughView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackSaver/UI/Views/WalkthroughView.swift; sourceTree = "<group>"; };
+		E51104832F742F000006CD39 /* TrackSaver/UI/Sheets/PlaylistSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackSaver/UI/Sheets/PlaylistSheetView.swift; sourceTree = "<group>"; };
+		E51104842F742F000006CD39 /* TrackSaver/UI/AppBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackSaver/UI/AppBackground.swift; sourceTree = "<group>"; };
+		E51104852F742F000006CD39 /* TrackSaver/UI/RemoteImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackSaver/UI/RemoteImage.swift; sourceTree = "<group>"; };
+		E51104862F742F000006CD39 /* TrackSaver/UI/StyleKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackSaver/UI/StyleKit.swift; sourceTree = "<group>"; };
+		E51104872F742F000006CD39 /* TrackSaver/Spotify/SpotifyAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackSaver/Spotify/SpotifyAPI.swift; sourceTree = "<group>"; };
+		E51104882F742F000006CD39 /* TrackSaver/Spotify/SpotifyConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackSaver/Spotify/SpotifyConfig.swift; sourceTree = "<group>"; };
+		E51104892F742F000006CD39 /* TrackSaver/Spotify/OAuthPKCE.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackSaver/Spotify/OAuthPKCE.swift; sourceTree = "<group>"; };
+		E511048A2F742F000006CD39 /* TrackSaver/Spotify/SpotifyAuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackSaver/Spotify/SpotifyAuthManager.swift; sourceTree = "<group>"; };
+		E511048B2F742F000006CD39 /* TrackSaver/Storage/SharedDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackSaver/Storage/SharedDefaults.swift; sourceTree = "<group>"; };
+		E511048C2F742F000006CD39 /* TrackSaver/Storage/KeychainStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackSaver/Storage/KeychainStore.swift; sourceTree = "<group>"; };
+		E511048D2F742F000006CD39 /* TrackSaver/Notifications/NotificationHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackSaver/Notifications/NotificationHelper.swift; sourceTree = "<group>"; };
+		E511048E2F742F000006CD39 /* TrackSaver/Actions/TrackSaveService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackSaver/Actions/TrackSaveService.swift; sourceTree = "<group>"; };
+		E51104932F7432000006CD39 /* TrackSaver/Actions/CloudHistorySyncService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackSaver/Actions/CloudHistorySyncService.swift; sourceTree = "<group>"; };
 		E57CAE382F360A1200C49A4E /* TrackSaver.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TrackSaver.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E57CAE872F360A4D00C49A4E /* TrackSaverWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = TrackSaverWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		E57CAE892F360A4D00C49A4E /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
@@ -44,6 +77,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		E51104912F742F000006CD39 /* Exceptions for "TrackSaver For Mac" folder in "TrackSaver For Mac" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = E51104602F7423040006CD39 /* TrackSaver For Mac */;
+		};
 		E57CAE9C2F360A4E00C49A4E /* Exceptions for "TrackSaverWidget" folder in "TrackSaverWidgetExtension" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
@@ -54,6 +94,7 @@
 		E57CAEAC2F360A9400C49A4E /* Exceptions for "TrackSaver" folder in "TrackSaverWidgetExtension" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
+				Actions/CloudHistorySyncService.swift,
 				Intents/SaveCurrentTrackIntent.swift,
 				Notifications/NotificationHelper.swift,
 				Spotify/SpotifyAPI.swift,
@@ -66,6 +107,14 @@
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
+		E51104622F7423040006CD39 /* TrackSaver For Mac */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				E51104912F742F000006CD39 /* Exceptions for "TrackSaver For Mac" folder in "TrackSaver For Mac" target */,
+			);
+			path = "TrackSaver For Mac";
+			sourceTree = "<group>";
+		};
 		E57CAE3A2F360A1200C49A4E /* TrackSaver */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
@@ -85,6 +134,13 @@
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		E511045E2F7423040006CD39 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		E57CAE352F360A1200C49A4E /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -104,11 +160,36 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		E51104902F742F000006CD39 /* Mac Shared Sources */ = {
+			isa = PBXGroup;
+			children = (
+				E51104842F742F000006CD39 /* TrackSaver/UI/AppBackground.swift */,
+				E51104852F742F000006CD39 /* TrackSaver/UI/RemoteImage.swift */,
+				E51104862F742F000006CD39 /* TrackSaver/UI/StyleKit.swift */,
+				E51104832F742F000006CD39 /* TrackSaver/UI/Sheets/PlaylistSheetView.swift */,
+				E51104802F742F000006CD39 /* TrackSaver/UI/Views/MainView.swift */,
+				E51104812F742F000006CD39 /* TrackSaver/UI/Views/SettingsView.swift */,
+				E51104822F742F000006CD39 /* TrackSaver/UI/Views/WalkthroughView.swift */,
+				E51104872F742F000006CD39 /* TrackSaver/Spotify/SpotifyAPI.swift */,
+				E51104882F742F000006CD39 /* TrackSaver/Spotify/SpotifyConfig.swift */,
+				E51104892F742F000006CD39 /* TrackSaver/Spotify/OAuthPKCE.swift */,
+				E511048A2F742F000006CD39 /* TrackSaver/Spotify/SpotifyAuthManager.swift */,
+				E511048B2F742F000006CD39 /* TrackSaver/Storage/SharedDefaults.swift */,
+				E511048C2F742F000006CD39 /* TrackSaver/Storage/KeychainStore.swift */,
+				E511048D2F742F000006CD39 /* TrackSaver/Notifications/NotificationHelper.swift */,
+				E51104932F7432000006CD39 /* TrackSaver/Actions/CloudHistorySyncService.swift */,
+				E511048E2F742F000006CD39 /* TrackSaver/Actions/TrackSaveService.swift */,
+			);
+			name = "Mac Shared Sources";
+			sourceTree = "<group>";
+		};
 		E57CAE2F2F360A1200C49A4E = {
 			isa = PBXGroup;
 			children = (
 				E57CAE3A2F360A1200C49A4E /* TrackSaver */,
 				E57CAE8D2F360A4D00C49A4E /* TrackSaverWidget */,
+				E51104622F7423040006CD39 /* TrackSaver For Mac */,
+				E51104902F742F000006CD39 /* Mac Shared Sources */,
 				E57CAE882F360A4D00C49A4E /* Frameworks */,
 				E57CAE392F360A1200C49A4E /* Products */,
 			);
@@ -119,6 +200,7 @@
 			children = (
 				E57CAE382F360A1200C49A4E /* TrackSaver.app */,
 				E57CAE872F360A4D00C49A4E /* TrackSaverWidgetExtension.appex */,
+				E51104612F7423040006CD39 /* TrackSaver For Mac.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -135,6 +217,28 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		E51104602F7423040006CD39 /* TrackSaver For Mac */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E511046D2F7423040006CD39 /* Build configuration list for PBXNativeTarget "TrackSaver For Mac" */;
+			buildPhases = (
+				E511045D2F7423040006CD39 /* Sources */,
+				E511045E2F7423040006CD39 /* Frameworks */,
+				E511045F2F7423040006CD39 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				E51104622F7423040006CD39 /* TrackSaver For Mac */,
+			);
+			name = "TrackSaver For Mac";
+			packageProductDependencies = (
+			);
+			productName = "TrackSaver For Mac";
+			productReference = E51104612F7423040006CD39 /* TrackSaver For Mac.app */;
+			productType = "com.apple.product-type.application";
+		};
 		E57CAE372F360A1200C49A4E /* TrackSaver */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = E57CAE432F360A1400C49A4E /* Build configuration list for PBXNativeTarget "TrackSaver" */;
@@ -188,9 +292,12 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 2620;
+				LastSwiftUpdateCheck = 2630;
 				LastUpgradeCheck = 2620;
 				TargetAttributes = {
+					E51104602F7423040006CD39 = {
+						CreatedOnToolsVersion = 26.3;
+					};
 					E57CAE372F360A1200C49A4E = {
 						CreatedOnToolsVersion = 26.2;
 					};
@@ -215,11 +322,19 @@
 			targets = (
 				E57CAE372F360A1200C49A4E /* TrackSaver */,
 				E57CAE862F360A4D00C49A4E /* TrackSaverWidgetExtension */,
+				E51104602F7423040006CD39 /* TrackSaver For Mac */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		E511045F2F7423040006CD39 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		E57CAE362F360A1200C49A4E /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -237,6 +352,29 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		E511045D2F7423040006CD39 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E51104742F742F000006CD39 /* TrackSaver/UI/AppBackground.swift in Sources */,
+				E51104752F742F000006CD39 /* TrackSaver/UI/RemoteImage.swift in Sources */,
+				E51104762F742F000006CD39 /* TrackSaver/UI/StyleKit.swift in Sources */,
+				E51104732F742F000006CD39 /* TrackSaver/UI/Sheets/PlaylistSheetView.swift in Sources */,
+				E51104702F742F000006CD39 /* TrackSaver/UI/Views/MainView.swift in Sources */,
+				E51104712F742F000006CD39 /* TrackSaver/UI/Views/SettingsView.swift in Sources */,
+				E51104722F742F000006CD39 /* TrackSaver/UI/Views/WalkthroughView.swift in Sources */,
+				E51104772F742F000006CD39 /* TrackSaver/Spotify/SpotifyAPI.swift in Sources */,
+				E51104782F742F000006CD39 /* TrackSaver/Spotify/SpotifyConfig.swift in Sources */,
+				E51104792F742F000006CD39 /* TrackSaver/Spotify/OAuthPKCE.swift in Sources */,
+				E511047A2F742F000006CD39 /* TrackSaver/Spotify/SpotifyAuthManager.swift in Sources */,
+				E511047B2F742F000006CD39 /* TrackSaver/Storage/SharedDefaults.swift in Sources */,
+				E511047C2F742F000006CD39 /* TrackSaver/Storage/KeychainStore.swift in Sources */,
+				E511047D2F742F000006CD39 /* TrackSaver/Notifications/NotificationHelper.swift in Sources */,
+				E51104922F7432000006CD39 /* TrackSaver/Actions/CloudHistorySyncService.swift in Sources */,
+				E511047E2F742F000006CD39 /* TrackSaver/Actions/TrackSaveService.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		E57CAE342F360A1200C49A4E /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -262,6 +400,80 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
+		E511046B2F7423040006CD39 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = TrackSaver;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "TrackSaver For Mac/TrackSaver For Mac.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 8W4U9DBYVS;
+				ENABLE_APP_SANDBOX = YES;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				ENABLE_USER_SELECTED_FILES = readonly;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = "TrackSaver For Mac/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = TrackSaver;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 26.4;
+				MARKETING_VERSION = 1.1;
+				PRODUCT_BUNDLE_IDENTIFIER = DyonisosFergadiotis.TrackSaver;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				REGISTER_APP_GROUPS = YES;
+				SDKROOT = macosx;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		E511046C2F7423040006CD39 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = TrackSaver;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "TrackSaver For Mac/TrackSaver For Mac.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 8W4U9DBYVS;
+				ENABLE_APP_SANDBOX = YES;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				ENABLE_USER_SELECTED_FILES = readonly;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = "TrackSaver For Mac/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = TrackSaver;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 26.4;
+				MARKETING_VERSION = 1.1;
+				PRODUCT_BUNDLE_IDENTIFIER = DyonisosFergadiotis.TrackSaver;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				REGISTER_APP_GROUPS = YES;
+				SDKROOT = macosx;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
 		E57CAE412F360A1400C49A4E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -386,7 +598,7 @@
 		E57CAE442F360A1400C49A4E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = TrackSaver;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = TrackSaver/TrackSaver.entitlements;
 				CODE_SIGN_STYLE = Automatic;
@@ -405,7 +617,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.5;
+				MARKETING_VERSION = 1.6;
 				PRODUCT_BUNDLE_IDENTIFIER = DyonisosFergadiotis.TrackSaver;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
@@ -421,7 +633,7 @@
 		E57CAE452F360A1400C49A4E /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = TrackSaver;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = TrackSaver/TrackSaver.entitlements;
 				CODE_SIGN_STYLE = Automatic;
@@ -440,7 +652,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.5;
+				MARKETING_VERSION = 1.6;
 				PRODUCT_BUNDLE_IDENTIFIER = DyonisosFergadiotis.TrackSaver;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
@@ -518,6 +730,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		E511046D2F7423040006CD39 /* Build configuration list for PBXNativeTarget "TrackSaver For Mac" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E511046B2F7423040006CD39 /* Debug */,
+				E511046C2F7423040006CD39 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		E57CAE332F360A1200C49A4E /* Build configuration list for PBXProject "TrackSaver" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

@@ -1,192 +1,211 @@
 import SwiftUI
 
-private struct SearchableWhenExpandedModifier: ViewModifier {
-    let isExpanded: Bool
-    @Binding var query: String
-
-    @ViewBuilder
-    func body(content: Content) -> some View {
-        if isExpanded {
-            content.searchable(text: $query, placement: .navigationBarDrawer(displayMode: .always))
-        } else {
-            content
-        }
-    }
-}
-
 struct PlaylistSheetView: View {
-    @Environment(\.dismiss) private var dismiss
     @Environment(\.openURL) private var openURL
+    @Environment(\.colorScheme) private var colorScheme
+
     static let minimizedDetentHeight: CGFloat = 100
 
-    // MARK: - Inputs
     let playlists: [SpotifyAPI.Playlist]
     @Binding var selectedId: String?
     let selectedPlaylist: SpotifyAPI.Playlist?
-    let isRefreshing: Bool
     let isLoadingPlaylists: Bool
     @Binding var detent: PresentationDetent
     var allowsCollapse: Bool = true
     var onSelect: @Sendable (_ playlist: SpotifyAPI.Playlist) async -> Void
     var onRefresh: @Sendable () async -> Void
 
-    // Local search state
     @State private var query: String = ""
     @State private var isSwitchingPlaylist = false
-
-    // Convenience flags for UI states
-    private var isMinimized: Bool {
-        allowsCollapse && detent == .height(Self.minimizedDetentHeight)
-    }
+    @FocusState private var isToolbarSearchFocused: Bool
 
     private var currentSelected: SpotifyAPI.Playlist? {
         playlists.first(where: { $0.id == selectedId }) ?? selectedPlaylist
     }
 
-    private var filtered: [SpotifyAPI.Playlist] {
-        let trimmedQuery = query.trimmingCharacters(in: .whitespacesAndNewlines)
-        guard !trimmedQuery.isEmpty else { return playlists }
-        return playlists.filter { playlist in
-            if playlist.name.localizedCaseInsensitiveContains(trimmedQuery) { return true }
-            let description = playlist.description ?? ""
-            return description.localizedCaseInsensitiveContains(trimmedQuery)
-        }
-    }
-
     private var selectablePlaylists: [SpotifyAPI.Playlist] {
-        filtered.filter { $0.id != selectedId }
-    }
+        let normalizedQuery = query.trimmingCharacters(in: .whitespacesAndNewlines)
+        let matchedPlaylists: [SpotifyAPI.Playlist]
 
-    private var detentAnimation: Animation {
-        .interactiveSpring(response: 0.50, dampingFraction: 0.90, blendDuration: 0.24)
+        if normalizedQuery.isEmpty {
+            matchedPlaylists = playlists
+        } else {
+            matchedPlaylists = playlists.filter { playlist in
+                if playlist.name.localizedCaseInsensitiveContains(normalizedQuery) {
+                    return true
+                }
+
+                let description = playlist.description ?? ""
+                return description.localizedCaseInsensitiveContains(normalizedQuery)
+            }
+        }
+
+        guard let selectedId else {
+            return alphabeticallySortedPlaylists(matchedPlaylists)
+        }
+
+        return alphabeticallySortedPlaylists(
+            matchedPlaylists.filter { $0.id != selectedId }
+        )
     }
 
     var body: some View {
         NavigationStack {
-            sheetContent
-                .animation(detentAnimation, value: isMinimized)
-                .navigationTitle(isMinimized ? "" : "Playlist wählen")
-                .navigationBarTitleDisplayMode(.inline)
-                .toolbar(isMinimized ? .hidden : .visible, for: .navigationBar)
-                .modifier(SearchableWhenExpandedModifier(isExpanded: !isMinimized, query: $query))
+            VStack(spacing: 18) {
+                selectedPlaylistCard
+                    .padding(.horizontal, 20)
+
+                expandedBody
+            }
+            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
+            .background(Color.clear)
+            .navigationTitle("Playlists")
+            .playlistSheetInlineNavigationBarTitleDisplayMode()
+            .toolbar { playlistSheetToolbarContent }
         }
     }
 
-    // MARK: - Layout
-    private var sheetContent: some View {
-        ZStack(alignment: .top) {
-            AppBackground()
+    @ToolbarContentBuilder
+    private var playlistSheetToolbarContent: some ToolbarContent {
+#if os(macOS)
+        ToolbarItem(placement: .principal) {
+            searchToolbarField
+                .frame(minWidth: 260)
+        }
 
-            VStack(spacing: 0) {
-                if isMinimized {
-                    minimizedHeader
-                        .padding(.horizontal, 16)
-                        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottom)
-                        .padding(.bottom, 6)
-                } else {
-                    expandedHeader
-                        .padding(.horizontal, 16)
-                        .padding(.top, 10)
+        ToolbarItem(placement: .primaryAction) {
+            refreshToolbarButton
+        }
 
-                    expandedBody
+        if isToolbarSearchFocused {
+            ToolbarItem(placement: .automatic) {
+                closeSearchToolbarButton
+            }
+        }
+#else
+        ToolbarItem(placement: .topBarTrailing) {
+            refreshToolbarButton
+        }
+
+        ToolbarItem(placement: .bottomBar) {
+            searchToolbarField
+        }
+
+        if isToolbarSearchFocused {
+            ToolbarSpacer(.flexible, placement: .bottomBar)
+
+            ToolbarItem(placement: .bottomBar) {
+                closeSearchToolbarButton
+            }
+        }
+#endif
+    }
+
+    private var refreshToolbarButton: some View {
+        Button {
+            Task {
+                await onRefresh()
+            }
+        } label: {
+            Image(systemName: "arrow.clockwise")
+                .font(.system(size: 16, weight: .semibold))
+                .foregroundStyle(StyleKit.textPrimary)
+        }
+        .buttonStyle(.plain)
+    }
+
+    private var searchToolbarField: some View {
+        HStack(spacing: 8) {
+            Image(systemName: "magnifyingglass")
+                .foregroundStyle(StyleKit.accent)
+                .padding(.leading, 10)
+
+            TextField("Playlist suchen", text: $query)
+                .focused($isToolbarSearchFocused)
+                .playlistSheetSearchInputBehavior()
+                .tint(StyleKit.accent)
+
+            if !query.isEmpty {
+                Button {
+                    query = ""
+                } label: {
+                    Image(systemName: "xmark.circle.fill")
+                        .foregroundStyle(StyleKit.textMuted)
                 }
+                .padding(.trailing, 10)
+                .buttonStyle(.plain)
+                .accessibilityLabel("Suche leeren")
             }
         }
     }
 
-    // MARK: - Header
-    private var minimizedHeader: some View {
+    private var closeSearchToolbarButton: some View {
         Button {
-            toggleDetent()
+            closeSearchFromToolbar()
         } label: {
+            Image(systemName: "xmark")
+                .foregroundStyle(StyleKit.accent)
+        }
+        .buttonStyle(.plain)
+        .accessibilityLabel("Suche schließen")
+    }
+
+    private var sheetHeader: some View {
+        HStack(alignment: .top, spacing: 12) {
+            VStack(alignment: .leading, spacing: 4) {
+                Text("Playlists")
+                    .font(.system(size: 26, weight: .black, design: .rounded))
+                    .foregroundStyle(StyleKit.textPrimary)
+            }
+
+            Spacer(minLength: 12)
+        }
+    }
+
+    private var selectedPlaylistCard: some View {
+        GlassCard(style: .compact) {
             HStack(spacing: 12) {
                 compactArtwork
-                    .frame(width: 36, height: 36)
-                    .clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
+                    .frame(width: 46, height: 46)
+                    .clipShape(RoundedRectangle(cornerRadius: 13, style: .continuous))
 
-                VStack(alignment: .leading, spacing: 4) {
-                    Text(currentSelected?.name ?? "Playlist wählen")
-                        .font(.system(size: 14, weight: .semibold, design: .rounded))
-                        .foregroundStyle(.white)
-                        .lineLimit(1)
-                        .truncationMode(.tail)
+                HStack(spacing: 12) {
+                    VStack(alignment: .leading, spacing: 3) {
+                        Text(currentSelected?.name ?? "Playlists")
+                            .font(.system(size: 15, weight: .semibold, design: .rounded))
+                            .foregroundStyle(StyleKit.textPrimary)
+                            .lineLimit(1)
 
-                    if let compactDescription {
-                        Text(compactDescription)
+                        Text(selectedPlaylistDescription)
                             .font(.system(size: 12, weight: .medium, design: .rounded))
-                            .foregroundStyle(.white.opacity(0.72))
+                            .foregroundStyle(StyleKit.textSecondary)
                             .lineLimit(1)
                             .truncationMode(.tail)
                     }
-                }
-                .frame(maxWidth: .infinity, alignment: .leading)
-            }
-            .padding(.horizontal, 12)
-            .padding(.vertical, 10)
-            .frame(minHeight: 58)
-            .frame(maxWidth: .infinity, alignment: .leading)
-        }
-        .buttonStyle(.plain)
-        .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 20, style: .continuous))
-        .overlay(
-            RoundedRectangle(cornerRadius: 20, style: .continuous)
-                .stroke(Color.white.opacity(0.20), lineWidth: 1)
-        )
-        .shadow(color: .black.opacity(0.16), radius: 6, x: 0, y: 3)
-    }
 
-    private var expandedHeader: some View {
-        Button {
-            if allowsCollapse {
-                toggleDetent()
-            } else {
-                dismiss()
-            }
-        } label: {
-            HStack(spacing: 12) {
-                compactArtwork
-                    .frame(width: 50, height: 50)
-                    .clipShape(RoundedRectangle(cornerRadius: 14, style: .continuous))
+                    Spacer(minLength: 0)
 
-                VStack(alignment: .leading, spacing: 4) {
-                    Text(currentSelected?.name ?? "Playlist wählen")
-                        .font(.system(size: 17, weight: .bold, design: .rounded))
-                        .foregroundStyle(.white)
-                        .lineLimit(1)
-                        .truncationMode(.tail)
-
-                    if let compactDescription {
-                        Text(compactDescription)
-                            .font(.system(size: 12, weight: .medium, design: .rounded))
-                            .foregroundStyle(.white.opacity(0.72))
-                            .lineLimit(1)
-                            .truncationMode(.tail)
+                    if currentSelected != nil {
+                        Image(systemName: "checkmark.circle.fill")
+                            .font(.system(size: 15, weight: .semibold))
+                            .foregroundStyle(StyleKit.accent)
                     }
                 }
-                .frame(maxWidth: .infinity, alignment: .leading)
-
-                Image(systemName: allowsCollapse ? "chevron.down" : "checkmark")
-                    .font(.system(size: 11, weight: .bold))
-                    .foregroundStyle(allowsCollapse ? Color.white.opacity(0.86) : StyleKit.accent)
-                    .padding(9)
-                    .background(
-                        Circle()
-                            .fill(allowsCollapse ? Color.white.opacity(0.10) : StyleKit.accent.opacity(0.14))
-                    )
             }
-            .padding(.horizontal, 14)
-            .padding(.vertical, 12)
-            .frame(maxWidth: .infinity, alignment: .leading)
         }
-        .buttonStyle(.plain)
-        .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 24, style: .continuous))
-        .overlay(
-            RoundedRectangle(cornerRadius: 24, style: .continuous)
-                .stroke(Color.white.opacity(0.18), lineWidth: 1)
-        )
+        .overlay {
+            playlistCardContrastOverlay
+        }
+        .overlay {
+            if currentSelected != nil {
+                RoundedRectangle(cornerRadius: StyleKit.Radius.compact, style: .continuous)
+                    .stroke(StyleKit.accent.opacity(0.55), lineWidth: 1.2)
+                    .shadow(color: StyleKit.accent.opacity(0.28), radius: 10, x: 0, y: 0)
+                    .shadow(color: StyleKit.glassGlow.opacity(0.22), radius: 18, x: 0, y: 0)
+            }
+        }
     }
 
-    // MARK: - Expanded Body
     @ViewBuilder
     private var expandedBody: some View {
         if isLoadingPlaylists {
@@ -194,33 +213,33 @@ struct PlaylistSheetView: View {
                 ProgressView()
                 Text("Playlists werden geladen…")
                     .font(.system(size: 13, weight: .medium, design: .rounded))
-                    .foregroundStyle(.white.opacity(0.75))
+                    .foregroundStyle(StyleKit.textSecondary)
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .padding(.top, 20)
+            .padding(.top, 32)
         } else if playlists.isEmpty || selectablePlaylists.isEmpty {
             emptyState
         } else {
             playlistList
-                .transition(
-                    .asymmetric(
-                        insertion: .opacity.combined(with: .offset(y: 12)),
-                        removal: .opacity.combined(with: .offset(y: 8))
-                    )
-                )
         }
     }
 
     private var emptyState: some View {
         VStack(spacing: 14) {
-            GlassCard {
+            GlassCard(style: .compact) {
                 VStack(alignment: .leading, spacing: 10) {
                     Text(query.isEmpty ? "Keine weiteren Playlists gefunden." : "Keine Treffer für deine Suche.")
                         .font(.system(size: 15, weight: .semibold, design: .rounded))
-                        .foregroundStyle(.white)
-                    Text(query.isEmpty ? "Du kannst in Spotify eine Playlist erstellen und danach hier aktualisieren." : "Passe den Suchbegriff an oder aktualisiere die Liste.")
-                        .font(.system(size: 12, weight: .medium, design: .rounded))
-                        .foregroundStyle(.white.opacity(0.72))
+                        .foregroundStyle(StyleKit.textPrimary)
+
+                    Text(
+                        query.isEmpty
+                            ? "Wenn du nur eine bearbeitbare Playlist hast, bleibt sie oben als ausgewählte Playlist stehen."
+                            : "Passe den Suchbegriff an oder aktualisiere die Liste."
+                    )
+                    .font(.system(size: 12, weight: .medium, design: .rounded))
+                    .foregroundStyle(StyleKit.textSecondary)
+
                     if query.isEmpty {
                         Button {
                             createPlaylistInSpotify()
@@ -228,9 +247,9 @@ struct PlaylistSheetView: View {
                             Label("Neue Playlist in Spotify anlegen", systemImage: "plus.circle.fill")
                                 .font(.system(size: 13, weight: .semibold, design: .rounded))
                         }
-                        .buttonStyle(.borderedProminent)
+                        .buttonStyle(.glassProminent)
                         .tint(StyleKit.accent)
-                        .padding(.top, 2)
+                        .padding(.top, 4)
                     }
                 }
             }
@@ -238,119 +257,113 @@ struct PlaylistSheetView: View {
 
             Spacer(minLength: 0)
         }
-        .padding(.top, 20)
+        .padding(.top, 6)
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
     }
 
     private var playlistList: some View {
         ScrollView(showsIndicators: false) {
-            VStack(alignment: .leading, spacing: 14) {
+            VStack(alignment: .leading, spacing: 12) {
                 HStack {
                     Text(query.isEmpty ? "Weitere Playlists" : "Suchergebnisse")
                         .font(.system(size: 13, weight: .semibold, design: .rounded))
-                        .foregroundStyle(.white.opacity(0.72))
+                        .foregroundStyle(StyleKit.textSecondary)
 
                     Spacer()
 
                     Text("\(selectablePlaylists.count)")
                         .font(.system(size: 12, weight: .semibold, design: .rounded))
-                        .foregroundStyle(.white.opacity(0.55))
-                        .padding(.horizontal, 9)
-                        .padding(.vertical, 5)
-                        .background(
-                            Capsule()
-                                .fill(Color.white.opacity(0.08))
-                                .overlay(Capsule().stroke(Color.white.opacity(0.16), lineWidth: 1))
-                        )
+                        .foregroundStyle(StyleKit.textMuted)
                 }
-                .padding(.horizontal, 2)
-                .padding(.top, 2)
+                .padding(.horizontal, 20)
 
-                LazyVStack(spacing: 10) {
+                LazyVStack(spacing: 15) {
                     ForEach(selectablePlaylists) { playlist in
                         Button {
                             Task {
                                 isSwitchingPlaylist = true
                                 defer { isSwitchingPlaylist = false }
                                 await onSelect(playlist)
-                                if allowsCollapse {
-                                    withAnimation(detentAnimation) {
-                                        detent = .height(Self.minimizedDetentHeight)
-                                    }
-                                } else {
-                                    dismiss()
-                                }
                             }
                         } label: {
                             playlistRow(playlist)
+                                .padding(.horizontal, 20)
                         }
                         .buttonStyle(.plain)
                         .disabled(isSwitchingPlaylist)
                     }
                 }
             }
-            .padding(.horizontal, 20)
-            .padding(.top, 6)
-            .padding(.bottom, 96)
+            .padding(.top, 4)
+            .padding(.bottom, 104)
         }
         .refreshable {
             await onRefresh()
         }
     }
 
-    // MARK: - Playlist Row
     private func playlistRow(_ playlist: SpotifyAPI.Playlist) -> some View {
-        HStack(spacing: 12) {
-            playlistArtwork(playlist, isCompact: false)
-                .frame(width: 50, height: 50)
-                .clipShape(RoundedRectangle(cornerRadius: 13, style: .continuous))
+        GlassCard(style: .compact) {
+            HStack(spacing: 12) {
+                playlistArtwork(playlist, isCompact: false)
+                    .frame(width: 46, height: 46)
+                    .clipShape(RoundedRectangle(cornerRadius: 13, style: .continuous))
 
-            VStack(alignment: .leading, spacing: 4) {
-                Text(playlist.name)
-                    .font(.system(size: 16, weight: .semibold, design: .rounded))
-                    .foregroundStyle(.white)
-                    .lineLimit(1)
-                    .truncationMode(.tail)
+                VStack(alignment: .leading, spacing: 3) {
+                    Text(playlist.name)
+                        .font(.system(size: 15, weight: .semibold, design: .rounded))
+                        .foregroundStyle(StyleKit.textPrimary)
+                        .lineLimit(1)
 
-                if let subtitle = playlistSubtitle(playlist) {
-                    Text(subtitle)
+                    Text(playlistSubtitle(playlist) ?? "Tippen, um diese Playlist aktiv zu setzen.")
                         .font(.system(size: 12, weight: .medium, design: .rounded))
-                        .foregroundStyle(.white.opacity(0.7))
+                        .foregroundStyle(StyleKit.textSecondary)
                         .lineLimit(1)
                         .truncationMode(.tail)
                 }
-            }
-            .frame(maxWidth: .infinity, alignment: .leading)
 
-            Image(systemName: "chevron.right")
-                .font(.system(size: 12, weight: .bold))
-                .foregroundStyle(.white.opacity(0.55))
-                .padding(.trailing, 2)
+                Spacer(minLength: 0)
+
+                Image(systemName: "arrow.up.left.circle.fill")
+                    .font(.system(size: 18, weight: .semibold))
+                    .foregroundStyle(StyleKit.accent)
+            }
         }
-        .padding(.horizontal, 14)
-        .padding(.vertical, 12)
-        .background(
-            RoundedRectangle(cornerRadius: 18, style: .continuous)
-                .fill(Color.white.opacity(0.07))
-                .overlay(
-                    RoundedRectangle(cornerRadius: 18, style: .continuous)
-                        .stroke(Color.white.opacity(0.12), lineWidth: 1)
-                )
-        )
-        .overlay(
-            RoundedRectangle(cornerRadius: 18, style: .continuous)
-                .fill(
-                    LinearGradient(
-                        colors: [.white.opacity(0.06), .clear],
-                        startPoint: .top,
-                        endPoint: .bottom
-                    )
-                )
-                .allowsHitTesting(false)
-        )
+        .overlay {
+            playlistCardContrastOverlay
+        }
     }
 
-    // MARK: - Artwork Helpers
+    @ViewBuilder
+    private var playlistCardContrastOverlay: some View {
+        if colorScheme != .dark {
+            RoundedRectangle(cornerRadius: StyleKit.Radius.compact, style: .continuous)
+                .fill(
+                    LinearGradient(
+                        colors: [
+                            Color.white.opacity(0.18),
+                            Color.clear
+                        ],
+                        startPoint: .topLeading,
+                        endPoint: .bottomTrailing
+                    )
+                )
+
+            RoundedRectangle(cornerRadius: StyleKit.Radius.compact, style: .continuous)
+                .stroke(
+                    LinearGradient(
+                        colors: [
+                            StyleKit.strokeStrong.opacity(0.34),
+                            StyleKit.stroke.opacity(0.20)
+                        ],
+                        startPoint: .topLeading,
+                        endPoint: .bottomTrailing
+                    ),
+                    lineWidth: 1
+                )
+        }
+    }
+
     @ViewBuilder
     private var compactArtwork: some View {
         if let urlString = currentSelected?.images?.first?.url, let url = URL(string: urlString) {
@@ -374,20 +387,33 @@ struct PlaylistSheetView: View {
 
     private func artworkFallback(isCompact: Bool) -> some View {
         ZStack {
-            RoundedRectangle(cornerRadius: isCompact ? 12 : 14, style: .continuous)
-                .fill(Color.white.opacity(0.10))
+            LiquidGlassPlate(
+                cornerRadius: isCompact ? 12 : 14,
+                tint: StyleKit.surfaceStrong,
+                edgeTint: StyleKit.stroke,
+                glowColor: StyleKit.glassGlowWarm,
+                material: .thinMaterial,
+                shadowOpacity: 0.10,
+                shadowRadius: 5,
+                shadowY: 2
+            )
+
             Image(systemName: "music.note")
                 .font(.system(size: isCompact ? 14 : 18, weight: .semibold))
-                .foregroundStyle(.white.opacity(0.52))
+                .foregroundStyle(StyleKit.textMuted)
         }
     }
 
-    // MARK: - Text Helpers
-    private var compactDescription: String? {
-        guard let currentSelected else {
-            return playlists.isEmpty ? "Keine Playlist verfügbar" : "Tippe zum Auswählen"
+    private var selectedPlaylistDescription: String {
+        if let currentSelected, let subtitle = playlistSubtitle(currentSelected) {
+            return subtitle
         }
-        return playlistSubtitle(currentSelected)
+
+        if currentSelected != nil {
+            return "Diese Playlist wird für neue Saves verwendet."
+        }
+
+        return "Wähle eine Playlist aus, in die neue Tracks gespeichert werden."
     }
 
     private func playlistSubtitle(_ playlist: SpotifyAPI.Playlist) -> String? {
@@ -395,10 +421,17 @@ struct PlaylistSheetView: View {
         return trimmed.isEmpty ? nil : trimmed
     }
 
-    private func toggleDetent() {
-        guard allowsCollapse else { return }
-        withAnimation(detentAnimation) {
-            detent = isMinimized ? .medium : .height(Self.minimizedDetentHeight)
+    private func alphabeticallySortedPlaylists(_ playlists: [SpotifyAPI.Playlist]) -> [SpotifyAPI.Playlist] {
+        playlists.sorted {
+            let leftName = $0.name.trimmingCharacters(in: .whitespacesAndNewlines)
+            let rightName = $1.name.trimmingCharacters(in: .whitespacesAndNewlines)
+
+            let comparison = leftName.localizedCaseInsensitiveCompare(rightName)
+            if comparison == .orderedSame {
+                return $0.id < $1.id
+            }
+
+            return comparison == .orderedAscending
         }
     }
 
@@ -406,13 +439,40 @@ struct PlaylistSheetView: View {
         guard let url = URL(string: "https://open.spotify.com/collection/playlists") else { return }
         openURL(url)
     }
+
+    private func closeSearchFromToolbar() {
+        isToolbarSearchFocused = false
+    }
 }
 
+private extension View {
+    @ViewBuilder
+    func playlistSheetInlineNavigationBarTitleDisplayMode() -> some View {
+#if os(iOS)
+        self.navigationBarTitleDisplayMode(.inline)
+#else
+        self
+#endif
+    }
 
+    @ViewBuilder
+    func playlistSheetSearchInputBehavior() -> some View {
+#if os(iOS)
+        self
+            .textInputAutocapitalization(.never)
+            .autocorrectionDisabled()
+            .submitLabel(.search)
+#else
+        self
+#endif
+    }
+}
+
+#if !os(macOS)
 #Preview("PlaylistSheetView") {
     struct PreviewHost: View {
-        @State private var selectedId: String? = nil
-        @State private var detent: PresentationDetent = .height(PlaylistSheetView.minimizedDetentHeight)
+        @State private var selectedId: String? = "1"
+        @State private var detent: PresentationDetent = .medium
         @State private var showSheet: Bool = true
 
         var samplePlaylists: [SpotifyAPI.Playlist] {
@@ -421,7 +481,7 @@ struct PlaylistSheetView: View {
                     id: "1",
                     name: "Daily Mix",
                     description: "Handpicked for you",
-                    images: [ .init(url: "https://via.placeholder.com/150", height: 150, width: 150) ],
+                    images: [.init(url: "https://via.placeholder.com/150", height: 150, width: 150)],
                     owner: .init(id: "Preview Owner"),
                     collaborative: false
                 ),
@@ -429,7 +489,7 @@ struct PlaylistSheetView: View {
                     id: "2",
                     name: "Top Hits",
                     description: "Hot right now",
-                    images: [ .init(url: "https://via.placeholder.com/150", height: 150, width: 150) ],
+                    images: [.init(url: "https://via.placeholder.com/150", height: 150, width: 150)],
                     owner: .init(id: "Preview Owner"),
                     collaborative: false
                 ),
@@ -437,7 +497,7 @@ struct PlaylistSheetView: View {
                     id: "3",
                     name: "Chill Vibes",
                     description: "Relax and unwind",
-                    images: [ .init(url: "https://via.placeholder.com/150", height: 150, width: 150) ],
+                    images: [.init(url: "https://via.placeholder.com/150", height: 150, width: 150)],
                     owner: .init(id: "Preview Owner"),
                     collaborative: false
                 )
@@ -448,25 +508,25 @@ struct PlaylistSheetView: View {
             ZStack {
                 AppBackground()
                 Text("Host View")
-                    .foregroundStyle(.white.opacity(0.7))
+                    .foregroundStyle(StyleKit.textSecondary)
             }
             .sheet(isPresented: $showSheet) {
                 PlaylistSheetView(
                     playlists: samplePlaylists,
                     selectedId: $selectedId,
                     selectedPlaylist: samplePlaylists.first,
-                    isRefreshing: false,
                     isLoadingPlaylists: false,
                     detent: $detent,
+                    allowsCollapse: false,
                     onSelect: { _ in },
                     onRefresh: {}
                 )
-                .presentationDetents([.height(PlaylistSheetView.minimizedDetentHeight), .medium], selection: $detent)
-                .presentationDragIndicator(.visible)
-                .interactiveDismissDisabled()
+                .presentationBackground(.clear)
+                .presentationDetents([.medium, .large], selection: $detent)
             }
-            .onAppear { showSheet = true }
         }
     }
+
     return PreviewHost()
 }
+#endif

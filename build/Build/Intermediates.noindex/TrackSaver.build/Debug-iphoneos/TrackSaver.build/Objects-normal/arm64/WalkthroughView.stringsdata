@@ -1,0 +1,16 @@
+{
+  "source": "/Users/dyonisosfergadiotis/Projekte/TrackSaver/TrackSaver/UI/Views/WalkthroughView.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "Schneller Zugriff",
+        "location": {
+          "startingColumn": 42,
+          "startingLine": 93
+        }
+      }
+    ]
+  },
+  "version": 1
+}

@@ -1,0 +1,40 @@
+{
+  "source": "/Users/dyonisosfergadiotis/Projekte/TrackSaver/TrackSaver/Intents/TrackSaverAppShortcuts.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "Track speichern",
+        "location": {
+          "startingColumn": 25,
+          "startingLine": 15
+        }
+      },
+      {
+        "comment": "",
+        "key": "Schicht 1",
+        "location": {
+          "startingColumn": 25,
+          "startingLine": 24
+        }
+      },
+      {
+        "comment": "",
+        "key": "Schicht 2",
+        "location": {
+          "startingColumn": 25,
+          "startingLine": 33
+        }
+      },
+      {
+        "comment": "",
+        "key": "Schicht 3",
+        "location": {
+          "startingColumn": 25,
+          "startingLine": 42
+        }
+      }
+    ]
+  },
+  "version": 1
+}

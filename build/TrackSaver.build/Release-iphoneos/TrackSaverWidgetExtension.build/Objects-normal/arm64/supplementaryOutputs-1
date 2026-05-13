@@ -1,0 +1,12 @@
+{
+  "/Users/dyonisosfergadiotis/Projekte/TrackSaver/TrackSaver/Actions/CloudHistorySyncService.swift" : {
+    "abi-baseline-json" : "/Users/dyonisosfergadiotis/Projekte/TrackSaver/build/TrackSaver.build/Release-iphoneos/TrackSaverWidgetExtension.build/Objects-normal/arm64/TrackSaverWidgetExtension.abi.json",
+    "const-values" : "/Users/dyonisosfergadiotis/Projekte/TrackSaver/build/TrackSaver.build/Release-iphoneos/TrackSaverWidgetExtension.build/Objects-normal/arm64/TrackSaverWidgetExtension-primary.swiftconstvalues",
+    "dependencies" : "/Users/dyonisosfergadiotis/Projekte/TrackSaver/build/TrackSaver.build/Release-iphoneos/TrackSaverWidgetExtension.build/Objects-normal/arm64/TrackSaverWidgetExtension-primary.d",
+    "diagnostics" : "/Users/dyonisosfergadiotis/Projekte/TrackSaver/build/TrackSaver.build/Release-iphoneos/TrackSaverWidgetExtension.build/Objects-normal/arm64/TrackSaverWidgetExtension-primary.dia",
+    "objc-header" : "/Users/dyonisosfergadiotis/Projekte/TrackSaver/build/TrackSaver.build/Release-iphoneos/TrackSaverWidgetExtension.build/Objects-normal/arm64/TrackSaverWidgetExtension-Swift.h",
+    "swiftdoc" : "/Users/dyonisosfergadiotis/Projekte/TrackSaver/build/TrackSaver.build/Release-iphoneos/TrackSaverWidgetExtension.build/Objects-normal/arm64/TrackSaverWidgetExtension.swiftdoc",
+    "swiftmodule" : "/Users/dyonisosfergadiotis/Projekte/TrackSaver/build/TrackSaver.build/Release-iphoneos/TrackSaverWidgetExtension.build/Objects-normal/arm64/TrackSaverWidgetExtension.swiftmodule",
+    "swiftsourceinfo" : "/Users/dyonisosfergadiotis/Projekte/TrackSaver/build/TrackSaver.build/Release-iphoneos/TrackSaverWidgetExtension.build/Objects-normal/arm64/TrackSaverWidgetExtension.swiftsourceinfo"
+  }
+}

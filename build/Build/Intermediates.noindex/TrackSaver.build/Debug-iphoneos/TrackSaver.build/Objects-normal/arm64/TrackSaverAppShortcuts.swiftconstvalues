@@ -1,0 +1,256 @@
+[
+  {
+    "typeName": "TrackSaver.TrackSaverAppShortcuts",
+    "mangledTypeName": "10TrackSaver0aB12AppShortcutsV",
+    "kind": "struct",
+    "file": "/Users/dyonisosfergadiotis/Projekte/TrackSaver/TrackSaver/Intents/TrackSaverAppShortcuts.swift",
+    "line": 3,
+    "conformances": [
+      "AppIntents.AppShortcutsProvider",
+      "Swift.Sendable",
+      "Swift.SendableMetatype",
+      "Swift.BitwiseCopyable"
+    ],
+    "allConformances": [
+      {
+        "protocolName": "AppIntents.AppShortcutsProvider",
+        "conformanceDefiningModule": "TrackSaver"
+      },
+      {
+        "protocolName": "Swift.Sendable",
+        "conformanceDefiningModule": "TrackSaver"
+      },
+      {
+        "protocolName": "Swift.SendableMetatype",
+        "conformanceDefiningModule": "TrackSaver"
+      },
+      {
+        "protocolName": "Swift.BitwiseCopyable",
+        "conformanceDefiningModule": "TrackSaver"
+      }
+    ],
+    "associatedTypeAliases": [],
+    "properties": [
+      {
+        "label": "shortcutTileColor",
+        "type": "AppIntents.ShortcutTileColor",
+        "mangledTypeName": "n/a - deprecated",
+        "isStatic": "true",
+        "isComputed": "false",
+        "file": "/Users/dyonisosfergadiotis/Projekte/TrackSaver/TrackSaver/Intents/TrackSaverAppShortcuts.swift",
+        "line": 4,
+        "valueKind": "Enum",
+        "value": {
+          "name": "blue"
+        }
+      },
+      {
+        "label": "appShortcuts",
+        "type": "Swift.Array<AppIntents.AppShortcut>",
+        "mangledTypeName": "n/a - deprecated",
+        "isStatic": "true",
+        "isComputed": "true",
+        "file": "/Users/dyonisosfergadiotis/Projekte/TrackSaver/TrackSaver/Intents/TrackSaverAppShortcuts.swift",
+        "line": 7,
+        "valueKind": "Builder",
+        "value": {
+          "type": "AppIntents.AppShortcutsBuilder",
+          "members": [
+            {
+              "kind": "buildExpression",
+              "element": {
+                "valueKind": "InitCall",
+                "value": {
+                  "type": "AppIntents.AppShortcut",
+                  "arguments": [
+                    {
+                      "label": "intent",
+                      "type": "TrackSaver.SaveCurrentTrackIntent",
+                      "valueKind": "InitCall",
+                      "value": {
+                        "type": "TrackSaver.SaveCurrentTrackIntent",
+                        "arguments": []
+                      }
+                    },
+                    {
+                      "label": "phrases",
+                      "type": "Swift.Array<AppIntents.AppShortcutPhrase<TrackSaver.SaveCurrentTrackIntent>>",
+                      "valueKind": "Array",
+                      "value": [
+                        {
+                          "valueKind": "RawLiteral",
+                          "value": "${applicationName} speichern"
+                        },
+                        {
+                          "valueKind": "RawLiteral",
+                          "value": "Track in ${applicationName} speichern"
+                        },
+                        {
+                          "valueKind": "RawLiteral",
+                          "value": "Song in ${applicationName} sichern"
+                        }
+                      ]
+                    },
+                    {
+                      "label": "shortTitle",
+                      "type": "Foundation.LocalizedStringResource",
+                      "valueKind": "RawLiteral",
+                      "value": "Track speichern"
+                    },
+                    {
+                      "label": "systemImageName",
+                      "type": "Swift.String",
+                      "valueKind": "RawLiteral",
+                      "value": "plus.app.fill"
+                    }
+                  ]
+                }
+              }
+            },
+            {
+              "kind": "buildExpression",
+              "element": {
+                "valueKind": "InitCall",
+                "value": {
+                  "type": "AppIntents.AppShortcut",
+                  "arguments": [
+                    {
+                      "label": "intent",
+                      "type": "TrackSaver.SaveCurrentTrackShift1Intent",
+                      "valueKind": "InitCall",
+                      "value": {
+                        "type": "TrackSaver.SaveCurrentTrackShift1Intent",
+                        "arguments": []
+                      }
+                    },
+                    {
+                      "label": "phrases",
+                      "type": "Swift.Array<AppIntents.AppShortcutPhrase<TrackSaver.SaveCurrentTrackShift1Intent>>",
+                      "valueKind": "Array",
+                      "value": [
+                        {
+                          "valueKind": "RawLiteral",
+                          "value": "${applicationName} Schicht 1 speichern"
+                        },
+                        {
+                          "valueKind": "RawLiteral",
+                          "value": "Schicht 1 Track in ${applicationName} sichern"
+                        }
+                      ]
+                    },
+                    {
+                      "label": "shortTitle",
+                      "type": "Foundation.LocalizedStringResource",
+                      "valueKind": "RawLiteral",
+                      "value": "Schicht 1"
+                    },
+                    {
+                      "label": "systemImageName",
+                      "type": "Swift.String",
+                      "valueKind": "RawLiteral",
+                      "value": "1.circle.fill"
+                    }
+                  ]
+                }
+              }
+            },
+            {
+              "kind": "buildExpression",
+              "element": {
+                "valueKind": "InitCall",
+                "value": {
+                  "type": "AppIntents.AppShortcut",
+                  "arguments": [
+                    {
+                      "label": "intent",
+                      "type": "TrackSaver.SaveCurrentTrackShift2Intent",
+                      "valueKind": "InitCall",
+                      "value": {
+                        "type": "TrackSaver.SaveCurrentTrackShift2Intent",
+                        "arguments": []
+                      }
+                    },
+                    {
+                      "label": "phrases",
+                      "type": "Swift.Array<AppIntents.AppShortcutPhrase<TrackSaver.SaveCurrentTrackShift2Intent>>",
+                      "valueKind": "Array",
+                      "value": [
+                        {
+                          "valueKind": "RawLiteral",
+                          "value": "${applicationName} Schicht 2 speichern"
+                        },
+                        {
+                          "valueKind": "RawLiteral",
+                          "value": "Schicht 2 Track in ${applicationName} sichern"
+                        }
+                      ]
+                    },
+                    {
+                      "label": "shortTitle",
+                      "type": "Foundation.LocalizedStringResource",
+                      "valueKind": "RawLiteral",
+                      "value": "Schicht 2"
+                    },
+                    {
+                      "label": "systemImageName",
+                      "type": "Swift.String",
+                      "valueKind": "RawLiteral",
+                      "value": "2.circle.fill"
+                    }
+                  ]
+                }
+              }
+            },
+            {
+              "kind": "buildExpression",
+              "element": {
+                "valueKind": "InitCall",
+                "value": {
+                  "type": "AppIntents.AppShortcut",
+                  "arguments": [
+                    {
+                      "label": "intent",
+                      "type": "TrackSaver.SaveCurrentTrackShift3Intent",
+                      "valueKind": "InitCall",
+                      "value": {
+                        "type": "TrackSaver.SaveCurrentTrackShift3Intent",
+                        "arguments": []
+                      }
+                    },
+                    {
+                      "label": "phrases",
+                      "type": "Swift.Array<AppIntents.AppShortcutPhrase<TrackSaver.SaveCurrentTrackShift3Intent>>",
+                      "valueKind": "Array",
+                      "value": [
+                        {
+                          "valueKind": "RawLiteral",
+                          "value": "${applicationName} Schicht 3 speichern"
+                        },
+                        {
+                          "valueKind": "RawLiteral",
+                          "value": "Schicht 3 Track in ${applicationName} sichern"
+                        }
+                      ]
+                    },
+                    {
+                      "label": "shortTitle",
+                      "type": "Foundation.LocalizedStringResource",
+                      "valueKind": "RawLiteral",
+                      "value": "Schicht 3"
+                    },
+                    {
+                      "label": "systemImageName",
+                      "type": "Swift.String",
+                      "valueKind": "RawLiteral",
+                      "value": "3.circle.fill"
+                    }
+                  ]
+                }
+              }
+            }
+          ]
+        }
+      }
+    ]
+  }
+]

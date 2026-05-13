@@ -1,0 +1,16 @@
+{
+  "source": "/Users/dyonisosfergadiotis/Projekte/TrackSaver/TrackSaver/App/ContentView.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "Prüfe Anmeldung…",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 12
+        }
+      }
+    ]
+  },
+  "version": 1
+}

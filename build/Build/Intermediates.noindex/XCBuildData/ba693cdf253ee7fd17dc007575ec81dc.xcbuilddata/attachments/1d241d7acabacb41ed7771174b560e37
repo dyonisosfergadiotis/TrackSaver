@@ -1,0 +1,109 @@
+{
+  "" : {
+    "diagnostics" : "/Users/dyonisosfergadiotis/Projekte/TrackSaver/build/Build/Intermediates.noindex/TrackSaver.build/Debug-iphoneos/TrackSaverWidgetExtension.build/Objects-normal/arm64/TrackSaverWidgetExtension-primary.dia",
+    "emit-module-dependencies" : "/Users/dyonisosfergadiotis/Projekte/TrackSaver/build/Build/Intermediates.noindex/TrackSaver.build/Debug-iphoneos/TrackSaverWidgetExtension.build/Objects-normal/arm64/TrackSaverWidgetExtension-primary-emit-module.d",
+    "emit-module-diagnostics" : "/Users/dyonisosfergadiotis/Projekte/TrackSaver/build/Build/Intermediates.noindex/TrackSaver.build/Debug-iphoneos/TrackSaverWidgetExtension.build/Objects-normal/arm64/TrackSaverWidgetExtension-primary-emit-module.dia",
+    "pch" : "/Users/dyonisosfergadiotis/Projekte/TrackSaver/build/Build/Intermediates.noindex/TrackSaver.build/Debug-iphoneos/TrackSaverWidgetExtension.build/Objects-normal/arm64/TrackSaverWidgetExtension-primary-Bridging-header.pch",
+    "swift-dependencies" : "/Users/dyonisosfergadiotis/Projekte/TrackSaver/build/Build/Intermediates.noindex/TrackSaver.build/Debug-iphoneos/TrackSaverWidgetExtension.build/Objects-normal/arm64/TrackSaverWidgetExtension-primary.swiftdeps"
+  },
+  "/Users/dyonisosfergadiotis/Projekte/TrackSaver/TrackSaver/Actions/CloudHistorySyncService.swift" : {
+    "const-values" : "/Users/dyonisosfergadiotis/Projekte/TrackSaver/build/Build/Intermediates.noindex/TrackSaver.build/Debug-iphoneos/TrackSaverWidgetExtension.build/Objects-normal/arm64/CloudHistorySyncService.swiftconstvalues",
+    "dependencies" : "/Users/dyonisosfergadiotis/Projekte/TrackSaver/build/Build/Intermediates.noindex/TrackSaver.build/Debug-iphoneos/TrackSaverWidgetExtension.build/Objects-normal/arm64/CloudHistorySyncService.d",
+    "diagnostics" : "/Users/dyonisosfergadiotis/Projekte/TrackSaver/build/Build/Intermediates.noindex/TrackSaver.build/Debug-iphoneos/TrackSaverWidgetExtension.build/Objects-normal/arm64/CloudHistorySyncService.dia",
+    "index-unit-output-path" : "/TrackSaver.build/Debug-iphoneos/TrackSaverWidgetExtension.build/Objects-normal/arm64/CloudHistorySyncService.o",
+    "llvm-bc" : "/Users/dyonisosfergadiotis/Projekte/TrackSaver/build/Build/Intermediates.noindex/TrackSaver.build/Debug-iphoneos/TrackSaverWidgetExtension.build/Objects-normal/arm64/CloudHistorySyncService.bc",
+    "object" : "/Users/dyonisosfergadiotis/Projekte/TrackSaver/build/Build/Intermediates.noindex/TrackSaver.build/Debug-iphoneos/TrackSaverWidgetExtension.build/Objects-normal/arm64/CloudHistorySyncService.o",
+    "swift-dependencies" : "/Users/dyonisosfergadiotis/Projekte/TrackSaver/build/Build/Intermediates.noindex/TrackSaver.build/Debug-iphoneos/TrackSaverWidgetExtension.build/Objects-normal/arm64/CloudHistorySyncService.swiftdeps",
+    "swiftmodule" : "/Users/dyonisosfergadiotis/Projekte/TrackSaver/build/Build/Intermediates.noindex/TrackSaver.build/Debug-iphoneos/TrackSaverWidgetExtension.build/Objects-normal/arm64/CloudHistorySyncService~partial.swiftmodule"
+  },
+  "/Users/dyonisosfergadiotis/Projekte/TrackSaver/TrackSaver/Intents/SaveCurrentTrackIntent.swift" : {
+    "const-values" : "/Users/dyonisosfergadiotis/Projekte/TrackSaver/build/Build/Intermediates.noindex/TrackSaver.build/Debug-iphoneos/TrackSaverWidgetExtension.build/Objects-normal/arm64/SaveCurrentTrackIntent.swiftconstvalues",
+    "dependencies" : "/Users/dyonisosfergadiotis/Projekte/TrackSaver/build/Build/Intermediates.noindex/TrackSaver.build/Debug-iphoneos/TrackSaverWidgetExtension.build/Objects-normal/arm64/SaveCurrentTrackIntent.d",
+    "diagnostics" : "/Users/dyonisosfergadiotis/Projekte/TrackSaver/build/Build/Intermediates.noindex/TrackSaver.build/Debug-iphoneos/TrackSaverWidgetExtension.build/Objects-normal/arm64/SaveCurrentTrackIntent.dia",
+    "index-unit-output-path" : "/TrackSaver.build/Debug-iphoneos/TrackSaverWidgetExtension.build/Objects-normal/arm64/SaveCurrentTrackIntent.o",
+    "llvm-bc" : "/Users/dyonisosfergadiotis/Projekte/TrackSaver/build/Build/Intermediates.noindex/TrackSaver.build/Debug-iphoneos/TrackSaverWidgetExtension.build/Objects-normal/arm64/SaveCurrentTrackIntent.bc",
+    "object" : "/Users/dyonisosfergadiotis/Projekte/TrackSaver/build/Build/Intermediates.noindex/TrackSaver.build/Debug-iphoneos/TrackSaverWidgetExtension.build/Objects-normal/arm64/SaveCurrentTrackIntent.o",
+    "swift-dependencies" : "/Users/dyonisosfergadiotis/Projekte/TrackSaver/build/Build/Intermediates.noindex/TrackSaver.build/Debug-iphoneos/TrackSaverWidgetExtension.build/Objects-normal/arm64/SaveCurrentTrackIntent.swiftdeps",
+    "swiftmodule" : "/Users/dyonisosfergadiotis/Projekte/TrackSaver/build/Build/Intermediates.noindex/TrackSaver.build/Debug-iphoneos/TrackSaverWidgetExtension.build/Objects-normal/arm64/SaveCurrentTrackIntent~partial.swiftmodule"
+  },
+  "/Users/dyonisosfergadiotis/Projekte/TrackSaver/TrackSaver/Notifications/NotificationHelper.swift" : {
+    "const-values" : "/Users/dyonisosfergadiotis/Projekte/TrackSaver/build/Build/Intermediates.noindex/TrackSaver.build/Debug-iphoneos/TrackSaverWidgetExtension.build/Objects-normal/arm64/NotificationHelper.swiftconstvalues",
+    "dependencies" : "/Users/dyonisosfergadiotis/Projekte/TrackSaver/build/Build/Intermediates.noindex/TrackSaver.build/Debug-iphoneos/TrackSaverWidgetExtension.build/Objects-normal/arm64/NotificationHelper.d",
+    "diagnostics" : "/Users/dyonisosfergadiotis/Projekte/TrackSaver/build/Build/Intermediates.noindex/TrackSaver.build/Debug-iphoneos/TrackSaverWidgetExtension.build/Objects-normal/arm64/NotificationHelper.dia",
+    "index-unit-output-path" : "/TrackSaver.build/Debug-iphoneos/TrackSaverWidgetExtension.build/Objects-normal/arm64/NotificationHelper.o",
+    "llvm-bc" : "/Users/dyonisosfergadiotis/Projekte/TrackSaver/build/Build/Intermediates.noindex/TrackSaver.build/Debug-iphoneos/TrackSaverWidgetExtension.build/Objects-normal/arm64/NotificationHelper.bc",
+    "object" : "/Users/dyonisosfergadiotis/Projekte/TrackSaver/build/Build/Intermediates.noindex/TrackSaver.build/Debug-iphoneos/TrackSaverWidgetExtension.build/Objects-normal/arm64/NotificationHelper.o",
+    "swift-dependencies" : "/Users/dyonisosfergadiotis/Projekte/TrackSaver/build/Build/Intermediates.noindex/TrackSaver.build/Debug-iphoneos/TrackSaverWidgetExtension.build/Objects-normal/arm64/NotificationHelper.swiftdeps",
+    "swiftmodule" : "/Users/dyonisosfergadiotis/Projekte/TrackSaver/build/Build/Intermediates.noindex/TrackSaver.build/Debug-iphoneos/TrackSaverWidgetExtension.build/Objects-normal/arm64/NotificationHelper~partial.swiftmodule"
+  },
+  "/Users/dyonisosfergadiotis/Projekte/TrackSaver/TrackSaver/Spotify/SpotifyAPI.swift" : {
+    "const-values" : "/Users/dyonisosfergadiotis/Projekte/TrackSaver/build/Build/Intermediates.noindex/TrackSaver.build/Debug-iphoneos/TrackSaverWidgetExtension.build/Objects-normal/arm64/SpotifyAPI.swiftconstvalues",
+    "dependencies" : "/Users/dyonisosfergadiotis/Projekte/TrackSaver/build/Build/Intermediates.noindex/TrackSaver.build/Debug-iphoneos/TrackSaverWidgetExtension.build/Objects-normal/arm64/SpotifyAPI.d",
+    "diagnostics" : "/Users/dyonisosfergadiotis/Projekte/TrackSaver/build/Build/Intermediates.noindex/TrackSaver.build/Debug-iphoneos/TrackSaverWidgetExtension.build/Objects-normal/arm64/SpotifyAPI.dia",
+    "index-unit-output-path" : "/TrackSaver.build/Debug-iphoneos/TrackSaverWidgetExtension.build/Objects-normal/arm64/SpotifyAPI.o",
+    "llvm-bc" : "/Users/dyonisosfergadiotis/Projekte/TrackSaver/build/Build/Intermediates.noindex/TrackSaver.build/Debug-iphoneos/TrackSaverWidgetExtension.build/Objects-normal/arm64/SpotifyAPI.bc",
+    "object" : "/Users/dyonisosfergadiotis/Projekte/TrackSaver/build/Build/Intermediates.noindex/TrackSaver.build/Debug-iphoneos/TrackSaverWidgetExtension.build/Objects-normal/arm64/SpotifyAPI.o",
+    "swift-dependencies" : "/Users/dyonisosfergadiotis/Projekte/TrackSaver/build/Build/Intermediates.noindex/TrackSaver.build/Debug-iphoneos/TrackSaverWidgetExtension.build/Objects-normal/arm64/SpotifyAPI.swiftdeps",
+    "swiftmodule" : "/Users/dyonisosfergadiotis/Projekte/TrackSaver/build/Build/Intermediates.noindex/TrackSaver.build/Debug-iphoneos/TrackSaverWidgetExtension.build/Objects-normal/arm64/SpotifyAPI~partial.swiftmodule"
+  },
+  "/Users/dyonisosfergadiotis/Projekte/TrackSaver/TrackSaver/Spotify/SpotifyConfig.swift" : {
+    "const-values" : "/Users/dyonisosfergadiotis/Projekte/TrackSaver/build/Build/Intermediates.noindex/TrackSaver.build/Debug-iphoneos/TrackSaverWidgetExtension.build/Objects-normal/arm64/SpotifyConfig.swiftconstvalues",
+    "dependencies" : "/Users/dyonisosfergadiotis/Projekte/TrackSaver/build/Build/Intermediates.noindex/TrackSaver.build/Debug-iphoneos/TrackSaverWidgetExtension.build/Objects-normal/arm64/SpotifyConfig.d",
+    "diagnostics" : "/Users/dyonisosfergadiotis/Projekte/TrackSaver/build/Build/Intermediates.noindex/TrackSaver.build/Debug-iphoneos/TrackSaverWidgetExtension.build/Objects-normal/arm64/SpotifyConfig.dia",
+    "index-unit-output-path" : "/TrackSaver.build/Debug-iphoneos/TrackSaverWidgetExtension.build/Objects-normal/arm64/SpotifyConfig.o",
+    "llvm-bc" : "/Users/dyonisosfergadiotis/Projekte/TrackSaver/build/Build/Intermediates.noindex/TrackSaver.build/Debug-iphoneos/TrackSaverWidgetExtension.build/Objects-normal/arm64/SpotifyConfig.bc",
+    "object" : "/Users/dyonisosfergadiotis/Projekte/TrackSaver/build/Build/Intermediates.noindex/TrackSaver.build/Debug-iphoneos/TrackSaverWidgetExtension.build/Objects-normal/arm64/SpotifyConfig.o",
+    "swift-dependencies" : "/Users/dyonisosfergadiotis/Projekte/TrackSaver/build/Build/Intermediates.noindex/TrackSaver.build/Debug-iphoneos/TrackSaverWidgetExtension.build/Objects-normal/arm64/SpotifyConfig.swiftdeps",
+    "swiftmodule" : "/Users/dyonisosfergadiotis/Projekte/TrackSaver/build/Build/Intermediates.noindex/TrackSaver.build/Debug-iphoneos/TrackSaverWidgetExtension.build/Objects-normal/arm64/SpotifyConfig~partial.swiftmodule"
+  },
+  "/Users/dyonisosfergadiotis/Projekte/TrackSaver/TrackSaver/Storage/KeychainStore.swift" : {
+    "const-values" : "/Users/dyonisosfergadiotis/Projekte/TrackSaver/build/Build/Intermediates.noindex/TrackSaver.build/Debug-iphoneos/TrackSaverWidgetExtension.build/Objects-normal/arm64/KeychainStore.swiftconstvalues",
+    "dependencies" : "/Users/dyonisosfergadiotis/Projekte/TrackSaver/build/Build/Intermediates.noindex/TrackSaver.build/Debug-iphoneos/TrackSaverWidgetExtension.build/Objects-normal/arm64/KeychainStore.d",
+    "diagnostics" : "/Users/dyonisosfergadiotis/Projekte/TrackSaver/build/Build/Intermediates.noindex/TrackSaver.build/Debug-iphoneos/TrackSaverWidgetExtension.build/Objects-normal/arm64/KeychainStore.dia",
+    "index-unit-output-path" : "/TrackSaver.build/Debug-iphoneos/TrackSaverWidgetExtension.build/Objects-normal/arm64/KeychainStore.o",
+    "llvm-bc" : "/Users/dyonisosfergadiotis/Projekte/TrackSaver/build/Build/Intermediates.noindex/TrackSaver.build/Debug-iphoneos/TrackSaverWidgetExtension.build/Objects-normal/arm64/KeychainStore.bc",
+    "object" : "/Users/dyonisosfergadiotis/Projekte/TrackSaver/build/Build/Intermediates.noindex/TrackSaver.build/Debug-iphoneos/TrackSaverWidgetExtension.build/Objects-normal/arm64/KeychainStore.o",
+    "swift-dependencies" : "/Users/dyonisosfergadiotis/Projekte/TrackSaver/build/Build/Intermediates.noindex/TrackSaver.build/Debug-iphoneos/TrackSaverWidgetExtension.build/Objects-normal/arm64/KeychainStore.swiftdeps",
+    "swiftmodule" : "/Users/dyonisosfergadiotis/Projekte/TrackSaver/build/Build/Intermediates.noindex/TrackSaver.build/Debug-iphoneos/TrackSaverWidgetExtension.build/Objects-normal/arm64/KeychainStore~partial.swiftmodule"
+  },
+  "/Users/dyonisosfergadiotis/Projekte/TrackSaver/TrackSaver/Storage/SharedDefaults.swift" : {
+    "const-values" : "/Users/dyonisosfergadiotis/Projekte/TrackSaver/build/Build/Intermediates.noindex/TrackSaver.build/Debug-iphoneos/TrackSaverWidgetExtension.build/Objects-normal/arm64/SharedDefaults.swiftconstvalues",
+    "dependencies" : "/Users/dyonisosfergadiotis/Projekte/TrackSaver/build/Build/Intermediates.noindex/TrackSaver.build/Debug-iphoneos/TrackSaverWidgetExtension.build/Objects-normal/arm64/SharedDefaults.d",
+    "diagnostics" : "/Users/dyonisosfergadiotis/Projekte/TrackSaver/build/Build/Intermediates.noindex/TrackSaver.build/Debug-iphoneos/TrackSaverWidgetExtension.build/Objects-normal/arm64/SharedDefaults.dia",
+    "index-unit-output-path" : "/TrackSaver.build/Debug-iphoneos/TrackSaverWidgetExtension.build/Objects-normal/arm64/SharedDefaults.o",
+    "llvm-bc" : "/Users/dyonisosfergadiotis/Projekte/TrackSaver/build/Build/Intermediates.noindex/TrackSaver.build/Debug-iphoneos/TrackSaverWidgetExtension.build/Objects-normal/arm64/SharedDefaults.bc",
+    "object" : "/Users/dyonisosfergadiotis/Projekte/TrackSaver/build/Build/Intermediates.noindex/TrackSaver.build/Debug-iphoneos/TrackSaverWidgetExtension.build/Objects-normal/arm64/SharedDefaults.o",
+    "swift-dependencies" : "/Users/dyonisosfergadiotis/Projekte/TrackSaver/build/Build/Intermediates.noindex/TrackSaver.build/Debug-iphoneos/TrackSaverWidgetExtension.build/Objects-normal/arm64/SharedDefaults.swiftdeps",
+    "swiftmodule" : "/Users/dyonisosfergadiotis/Projekte/TrackSaver/build/Build/Intermediates.noindex/TrackSaver.build/Debug-iphoneos/TrackSaverWidgetExtension.build/Objects-normal/arm64/SharedDefaults~partial.swiftmodule"
+  },
+  "/Users/dyonisosfergadiotis/Projekte/TrackSaver/TrackSaverWidget/TrackSaverWidgetBundle.swift" : {
+    "const-values" : "/Users/dyonisosfergadiotis/Projekte/TrackSaver/build/Build/Intermediates.noindex/TrackSaver.build/Debug-iphoneos/TrackSaverWidgetExtension.build/Objects-normal/arm64/TrackSaverWidgetBundle.swiftconstvalues",
+    "dependencies" : "/Users/dyonisosfergadiotis/Projekte/TrackSaver/build/Build/Intermediates.noindex/TrackSaver.build/Debug-iphoneos/TrackSaverWidgetExtension.build/Objects-normal/arm64/TrackSaverWidgetBundle.d",
+    "diagnostics" : "/Users/dyonisosfergadiotis/Projekte/TrackSaver/build/Build/Intermediates.noindex/TrackSaver.build/Debug-iphoneos/TrackSaverWidgetExtension.build/Objects-normal/arm64/TrackSaverWidgetBundle.dia",
+    "index-unit-output-path" : "/TrackSaver.build/Debug-iphoneos/TrackSaverWidgetExtension.build/Objects-normal/arm64/TrackSaverWidgetBundle.o",
+    "llvm-bc" : "/Users/dyonisosfergadiotis/Projekte/TrackSaver/build/Build/Intermediates.noindex/TrackSaver.build/Debug-iphoneos/TrackSaverWidgetExtension.build/Objects-normal/arm64/TrackSaverWidgetBundle.bc",
+    "object" : "/Users/dyonisosfergadiotis/Projekte/TrackSaver/build/Build/Intermediates.noindex/TrackSaver.build/Debug-iphoneos/TrackSaverWidgetExtension.build/Objects-normal/arm64/TrackSaverWidgetBundle.o",
+    "swift-dependencies" : "/Users/dyonisosfergadiotis/Projekte/TrackSaver/build/Build/Intermediates.noindex/TrackSaver.build/Debug-iphoneos/TrackSaverWidgetExtension.build/Objects-normal/arm64/TrackSaverWidgetBundle.swiftdeps",
+    "swiftmodule" : "/Users/dyonisosfergadiotis/Projekte/TrackSaver/build/Build/Intermediates.noindex/TrackSaver.build/Debug-iphoneos/TrackSaverWidgetExtension.build/Objects-normal/arm64/TrackSaverWidgetBundle~partial.swiftmodule"
+  },
+  "/Users/dyonisosfergadiotis/Projekte/TrackSaver/TrackSaverWidget/TrackSaverWidgetControl.swift" : {
+    "const-values" : "/Users/dyonisosfergadiotis/Projekte/TrackSaver/build/Build/Intermediates.noindex/TrackSaver.build/Debug-iphoneos/TrackSaverWidgetExtension.build/Objects-normal/arm64/TrackSaverWidgetControl.swiftconstvalues",
+    "dependencies" : "/Users/dyonisosfergadiotis/Projekte/TrackSaver/build/Build/Intermediates.noindex/TrackSaver.build/Debug-iphoneos/TrackSaverWidgetExtension.build/Objects-normal/arm64/TrackSaverWidgetControl.d",
+    "diagnostics" : "/Users/dyonisosfergadiotis/Projekte/TrackSaver/build/Build/Intermediates.noindex/TrackSaver.build/Debug-iphoneos/TrackSaverWidgetExtension.build/Objects-normal/arm64/TrackSaverWidgetControl.dia",
+    "index-unit-output-path" : "/TrackSaver.build/Debug-iphoneos/TrackSaverWidgetExtension.build/Objects-normal/arm64/TrackSaverWidgetControl.o",
+    "llvm-bc" : "/Users/dyonisosfergadiotis/Projekte/TrackSaver/build/Build/Intermediates.noindex/TrackSaver.build/Debug-iphoneos/TrackSaverWidgetExtension.build/Objects-normal/arm64/TrackSaverWidgetControl.bc",
+    "object" : "/Users/dyonisosfergadiotis/Projekte/TrackSaver/build/Build/Intermediates.noindex/TrackSaver.build/Debug-iphoneos/TrackSaverWidgetExtension.build/Objects-normal/arm64/TrackSaverWidgetControl.o",
+    "swift-dependencies" : "/Users/dyonisosfergadiotis/Projekte/TrackSaver/build/Build/Intermediates.noindex/TrackSaver.build/Debug-iphoneos/TrackSaverWidgetExtension.build/Objects-normal/arm64/TrackSaverWidgetControl.swiftdeps",
+    "swiftmodule" : "/Users/dyonisosfergadiotis/Projekte/TrackSaver/build/Build/Intermediates.noindex/TrackSaver.build/Debug-iphoneos/TrackSaverWidgetExtension.build/Objects-normal/arm64/TrackSaverWidgetControl~partial.swiftmodule"
+  },
+  "/Users/dyonisosfergadiotis/Projekte/TrackSaver/build/Build/Intermediates.noindex/TrackSaver.build/Debug-iphoneos/TrackSaverWidgetExtension.build/DerivedSources/GeneratedAssetSymbols.swift" : {
+    "const-values" : "/Users/dyonisosfergadiotis/Projekte/TrackSaver/build/Build/Intermediates.noindex/TrackSaver.build/Debug-iphoneos/TrackSaverWidgetExtension.build/Objects-normal/arm64/GeneratedAssetSymbols.swiftconstvalues",
+    "dependencies" : "/Users/dyonisosfergadiotis/Projekte/TrackSaver/build/Build/Intermediates.noindex/TrackSaver.build/Debug-iphoneos/TrackSaverWidgetExtension.build/Objects-normal/arm64/GeneratedAssetSymbols.d",
+    "diagnostics" : "/Users/dyonisosfergadiotis/Projekte/TrackSaver/build/Build/Intermediates.noindex/TrackSaver.build/Debug-iphoneos/TrackSaverWidgetExtension.build/Objects-normal/arm64/GeneratedAssetSymbols.dia",
+    "index-unit-output-path" : "/TrackSaver.build/Debug-iphoneos/TrackSaverWidgetExtension.build/Objects-normal/arm64/GeneratedAssetSymbols.o",
+    "llvm-bc" : "/Users/dyonisosfergadiotis/Projekte/TrackSaver/build/Build/Intermediates.noindex/TrackSaver.build/Debug-iphoneos/TrackSaverWidgetExtension.build/Objects-normal/arm64/GeneratedAssetSymbols.bc",
+    "object" : "/Users/dyonisosfergadiotis/Projekte/TrackSaver/build/Build/Intermediates.noindex/TrackSaver.build/Debug-iphoneos/TrackSaverWidgetExtension.build/Objects-normal/arm64/GeneratedAssetSymbols.o",
+    "swift-dependencies" : "/Users/dyonisosfergadiotis/Projekte/TrackSaver/build/Build/Intermediates.noindex/TrackSaver.build/Debug-iphoneos/TrackSaverWidgetExtension.build/Objects-normal/arm64/GeneratedAssetSymbols.swiftdeps",
+    "swiftmodule" : "/Users/dyonisosfergadiotis/Projekte/TrackSaver/build/Build/Intermediates.noindex/TrackSaver.build/Debug-iphoneos/TrackSaverWidgetExtension.build/Objects-normal/arm64/GeneratedAssetSymbols~partial.swiftmodule"
+  }
+}

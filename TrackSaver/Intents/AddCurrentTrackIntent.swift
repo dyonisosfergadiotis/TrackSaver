@@ -9,6 +9,7 @@ struct AddCurrentTrackIntent: AppIntent {
     }
 
     func perform() async throws -> some IntentResult {
-        return .result(value: await SaveTrackIntentRunner.perform(shortcutSlot: nil))
+        let output = await SaveTrackIntentRunner.perform(shortcutSlot: nil)
+        return .result(value: output, dialog: SaveTrackIntentRunner.intentDialog(for: output))
     }
 }

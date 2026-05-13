@@ -1,0 +1,128 @@
+{
+  "source": "/Users/dyonisosfergadiotis/Projekte/TrackSaver/TrackSaver/UI/Sheets/PlaylistSheetView.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "Playlists",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 62
+        }
+      },
+      {
+        "comment": "",
+        "key": "Suche schließen",
+        "location": {
+          "startingColumn": 29,
+          "startingLine": 150
+        }
+      },
+      {
+        "comment": "",
+        "key": "Playlist suchen",
+        "location": {
+          "startingColumn": 23,
+          "startingLine": 123
+        }
+      },
+      {
+        "comment": "",
+        "key": "Suche leeren",
+        "location": {
+          "startingColumn": 37,
+          "startingLine": 137
+        }
+      },
+      {
+        "comment": "",
+        "key": "Playlists",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 156
+        }
+      },
+      {
+        "comment": "",
+        "key": "Playlists werden geladen…",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 214
+        }
+      },
+      {
+        "comment": "",
+        "key": "Keine weiteren Playlists gefunden.",
+        "location": {
+          "startingColumn": 42,
+          "startingLine": 231
+        }
+      },
+      {
+        "comment": "",
+        "key": "Keine Treffer für deine Suche.",
+        "location": {
+          "startingColumn": 81,
+          "startingLine": 231
+        }
+      },
+      {
+        "comment": "",
+        "key": "Wenn du nur eine bearbeitbare Playlist hast, bleibt sie oben als ausgewählte Playlist stehen.",
+        "location": {
+          "startingColumn": 31,
+          "startingLine": 237
+        }
+      },
+      {
+        "comment": "",
+        "key": "Passe den Suchbegriff an oder aktualisiere die Liste.",
+        "location": {
+          "startingColumn": 31,
+          "startingLine": 238
+        }
+      },
+      {
+        "comment": "",
+        "key": "Neue Playlist in Spotify anlegen",
+        "location": {
+          "startingColumn": 35,
+          "startingLine": 247
+        }
+      },
+      {
+        "comment": "",
+        "key": "%lld",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 274
+        }
+      },
+      {
+        "comment": "",
+        "key": "Weitere Playlists",
+        "location": {
+          "startingColumn": 42,
+          "startingLine": 268
+        }
+      },
+      {
+        "comment": "",
+        "key": "Suchergebnisse",
+        "location": {
+          "startingColumn": 64,
+          "startingLine": 268
+        }
+      },
+      {
+        "comment": "",
+        "key": "Host View",
+        "location": {
+          "startingColumn": 1,
+          "startingLine": 472
+        }
+      }
+    ]
+  },
+  "version": 1
+}

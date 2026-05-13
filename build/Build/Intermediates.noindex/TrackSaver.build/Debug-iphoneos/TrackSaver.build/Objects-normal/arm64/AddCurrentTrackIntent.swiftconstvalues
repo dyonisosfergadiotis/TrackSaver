@@ -1,0 +1,98 @@
+[
+  {
+    "typeName": "TrackSaver.AddCurrentTrackIntent",
+    "mangledTypeName": "10TrackSaver010AddCurrentA6IntentV",
+    "kind": "struct",
+    "file": "/Users/dyonisosfergadiotis/Projekte/TrackSaver/TrackSaver/Intents/AddCurrentTrackIntent.swift",
+    "line": 3,
+    "conformances": [
+      "AppIntents.AppIntent",
+      "AppIntents.PersistentlyIdentifiable",
+      "AppIntents._SupportsAppDependencies",
+      "Swift.Sendable",
+      "Swift.SendableMetatype",
+      "Swift.BitwiseCopyable"
+    ],
+    "allConformances": [
+      {
+        "protocolName": "AppIntents.AppIntent",
+        "conformanceDefiningModule": "TrackSaver"
+      },
+      {
+        "protocolName": "AppIntents.PersistentlyIdentifiable",
+        "conformanceDefiningModule": "TrackSaver"
+      },
+      {
+        "protocolName": "AppIntents._SupportsAppDependencies",
+        "conformanceDefiningModule": "TrackSaver"
+      },
+      {
+        "protocolName": "Swift.Sendable",
+        "conformanceDefiningModule": "TrackSaver"
+      },
+      {
+        "protocolName": "Swift.SendableMetatype",
+        "conformanceDefiningModule": "TrackSaver"
+      },
+      {
+        "protocolName": "Swift.BitwiseCopyable",
+        "conformanceDefiningModule": "TrackSaver"
+      }
+    ],
+    "associatedTypeAliases": [
+      {
+        "typeAliasName": "PerformResult",
+        "substitutedTypeName": "some AppIntents.IntentResult",
+        "substitutedMangledTypeName": "10TrackSaver010AddCurrentA6IntentV7performQryYaKFQOy_Qo_",
+        "opaqueTypeProtocolRequirements": [
+          "AppIntents.IntentResult"
+        ],
+        "opaqueTypeSameTypeRequirements": []
+      },
+      {
+        "typeAliasName": "SummaryContent",
+        "substitutedTypeName": "some AppIntents.ParameterSummary",
+        "substitutedMangledTypeName": "10AppIntents0A6IntentPAAE16parameterSummaryQrvpZQOy10TrackSaver010AddCurrentfC0V_Qo_",
+        "opaqueTypeProtocolRequirements": [
+          "AppIntents.ParameterSummary"
+        ],
+        "opaqueTypeSameTypeRequirements": []
+      }
+    ],
+    "properties": [
+      {
+        "label": "title",
+        "type": "Foundation.LocalizedStringResource",
+        "mangledTypeName": "n/a - deprecated",
+        "isStatic": "true",
+        "isComputed": "false",
+        "file": "/Users/dyonisosfergadiotis/Projekte/TrackSaver/TrackSaver/Intents/AddCurrentTrackIntent.swift",
+        "line": 4,
+        "valueKind": "RawLiteral",
+        "value": "TrackSaver: Aktuellen Song speichern"
+      },
+      {
+        "label": "openAppWhenRun",
+        "type": "Swift.Bool",
+        "mangledTypeName": "n/a - deprecated",
+        "isStatic": "true",
+        "isComputed": "false",
+        "file": "/Users/dyonisosfergadiotis/Projekte/TrackSaver/TrackSaver/Intents/AddCurrentTrackIntent.swift",
+        "line": 5,
+        "valueKind": "RawLiteral",
+        "value": "false"
+      },
+      {
+        "label": "description",
+        "type": "Swift.Optional<AppIntents.IntentDescription>",
+        "mangledTypeName": "n/a - deprecated",
+        "isStatic": "true",
+        "isComputed": "true",
+        "file": "/Users/dyonisosfergadiotis/Projekte/TrackSaver/TrackSaver/Intents/AddCurrentTrackIntent.swift",
+        "line": 7,
+        "valueKind": "RawLiteral",
+        "value": "Legacy-Alias für den TrackSaver-Save-Intent."
+      }
+    ]
+  }
+]

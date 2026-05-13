@@ -1,0 +1,68 @@
+apiVersion: ssu/v1
+nlu:
+  shortcuts:
+    bundleIdentifier: DyonisosFergadiotis.TrackSaver
+    intents:
+    - metadata:
+        name: SaveCurrentTrackIntent_0
+        title: 'TrackSaver: Aktuellen Song speichern'
+      corpuses:
+        training:
+        - locale: en
+          utterances:
+          - '{${+prefix} }${+applicationName} speichern'
+          - '{${+prefix} }Track in ${+applicationName} speichern'
+          - '{${+prefix} }Song in ${+applicationName} sichern'
+    - metadata:
+        name: SaveCurrentTrackShift1Intent_1
+        title: 'TrackSaver: Schicht 1 speichern'
+      corpuses:
+        training:
+        - locale: en
+          utterances:
+          - '{${+prefix} }${+applicationName} Schicht 1 speichern'
+          - '{${+prefix} }Schicht 1 Track in ${+applicationName} sichern'
+    - metadata:
+        name: SaveCurrentTrackShift2Intent_2
+        title: 'TrackSaver: Schicht 2 speichern'
+      corpuses:
+        training:
+        - locale: en
+          utterances:
+          - '{${+prefix} }${+applicationName} Schicht 2 speichern'
+          - '{${+prefix} }Schicht 2 Track in ${+applicationName} sichern'
+    - metadata:
+        name: SaveCurrentTrackShift3Intent_3
+        title: 'TrackSaver: Schicht 3 speichern'
+      corpuses:
+        training:
+        - locale: en
+          utterances:
+          - '{${+prefix} }${+applicationName} Schicht 3 speichern'
+          - '{${+prefix} }Schicht 3 Track in ${+applicationName} sichern'
+    - metadata:
+        name: +negative
+      corpuses:
+        training:
+        - locale: en
+          utterances:
+          - '{${+prefix} }${+standardAppShortcutNegatives}'
+variables:
+- name: +applicationName
+  type: ssu/expansion
+  definitions:
+  - locale: en
+    synomyms:
+    - TrackSaver
+- name: +prefix
+  type: ssu/expansion
+  definitions:
+  - locale: en
+    synomyms:
+      $ref: ssu://Resources/prefix/en.yaml
+- name: +standardAppShortcutNegatives
+  type: ssu/expansion
+  definitions:
+  - locale: en
+    synomyms:
+      $ref: ssu://Resources/standardAppShortcutNegatives/en.yaml

@@ -1,0 +1,105 @@
+{
+  "source" : "\/Users\/dyonisosfergadiotis\/Projekte\/TrackSaver\/TrackSaver\/Intents\/TrackSaverAppShortcuts.swift",
+  "tables" : {
+    "AppShortcuts" : [
+      {
+        "location" : {
+          "startingColumn" : 0,
+          "startingLine" : 7
+        },
+        "key" : "${applicationName} speichern",
+        "values" : [
+          "${applicationName} speichern",
+          "Track in ${applicationName} speichern",
+          "Song in ${applicationName} sichern"
+        ],
+        "appShortcutMetadata" : [
+          {
+            "parameterDisplayRepresentations" : {
+
+            },
+            "parameterTypes" : {
+
+            },
+            "index" : 0,
+            "actionIdentifier" : "SaveCurrentTrackIntent",
+            "title" : "TrackSaver: Aktuellen Song speichern"
+          }
+        ]
+      },
+      {
+        "location" : {
+          "startingLine" : 7,
+          "startingColumn" : 0
+        },
+        "key" : "${applicationName} Schicht 1 speichern",
+        "values" : [
+          "${applicationName} Schicht 1 speichern",
+          "Schicht 1 Track in ${applicationName} sichern"
+        ],
+        "appShortcutMetadata" : [
+          {
+            "actionIdentifier" : "SaveCurrentTrackShift1Intent",
+            "index" : 1,
+            "title" : "TrackSaver: Schicht 1 speichern",
+            "parameterDisplayRepresentations" : {
+
+            },
+            "parameterTypes" : {
+
+            }
+          }
+        ]
+      },
+      {
+        "location" : {
+          "startingLine" : 7,
+          "startingColumn" : 0
+        },
+        "key" : "${applicationName} Schicht 2 speichern",
+        "values" : [
+          "${applicationName} Schicht 2 speichern",
+          "Schicht 2 Track in ${applicationName} sichern"
+        ],
+        "appShortcutMetadata" : [
+          {
+            "index" : 2,
+            "title" : "TrackSaver: Schicht 2 speichern",
+            "actionIdentifier" : "SaveCurrentTrackShift2Intent",
+            "parameterTypes" : {
+
+            },
+            "parameterDisplayRepresentations" : {
+
+            }
+          }
+        ]
+      },
+      {
+        "location" : {
+          "startingColumn" : 0,
+          "startingLine" : 7
+        },
+        "key" : "${applicationName} Schicht 3 speichern",
+        "values" : [
+          "${applicationName} Schicht 3 speichern",
+          "Schicht 3 Track in ${applicationName} sichern"
+        ],
+        "appShortcutMetadata" : [
+          {
+            "title" : "TrackSaver: Schicht 3 speichern",
+            "actionIdentifier" : "SaveCurrentTrackShift3Intent",
+            "parameterTypes" : {
+
+            },
+            "index" : 3,
+            "parameterDisplayRepresentations" : {
+
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "version" : 2
+}

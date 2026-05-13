@@ -4,12 +4,21 @@ import UserNotifications
 enum NotificationHelper {
     private static let center = UNUserNotificationCenter.current()
     private static let foregroundDelegate = ForegroundNotificationDelegate()
+    private static let artistTitleRegex = try? NSRegularExpression(pattern: "\\[[^\\]]*\\]")
+    private static let deliveryDelay: TimeInterval = 1
 
     static func configureOnLaunch() {
         center.delegate = foregroundDelegate
+        #if os(macOS)
         Task {
             _ = await ensureAuthorization()
         }
+        #endif
+    }
+
+    static func requestAuthorizationFromActiveApp() async {
+        center.delegate = foregroundDelegate
+        _ = await ensureAuthorization()
     }
 
     static func notify(title: String, body: String, artworkURLString: String? = nil) async {
@@ -31,23 +40,39 @@ enum NotificationHelper {
         let request = UNNotificationRequest(
             identifier: UUID().uuidString,
             content: content,
-            trigger: nil
+            trigger: UNTimeIntervalNotificationTrigger(timeInterval: deliveryDelay, repeats: false)
         )
-        try? await center.add(request)
+        do {
+            try await center.add(request)
+        } catch {
+            // Fall back to a plain text notification when attachment handling fails.
+            guard !content.attachments.isEmpty else { return }
+            content.attachments = []
+            let fallbackRequest = UNNotificationRequest(
+                identifier: UUID().uuidString,
+                content: content,
+                trigger: UNTimeIntervalNotificationTrigger(timeInterval: deliveryDelay, repeats: false)
+            )
+            try? await center.add(fallbackRequest)
+        }
     }
 
     static func cleanArtistTitle(_ input: String) -> String {
-        let pattern = "\\[[^\\]]*\\]"
-        guard let regex = try? NSRegularExpression(pattern: pattern, options: []) else { return input }
+        guard let artistTitleRegex else { return input }
         let range = NSRange(location: 0, length: input.utf16.count)
-        let stripped = regex.stringByReplacingMatches(in: input, options: [], range: range, withTemplate: "")
+        let stripped = artistTitleRegex.stringByReplacingMatches(in: input, options: [], range: range, withTemplate: "")
         let cleaned = stripped.trimmingCharacters(in: .whitespacesAndNewlines)
         return cleaned.isEmpty ? input : cleaned
     }
 
     private static func downloadAttachment(from url: URL) async -> UNNotificationAttachment? {
         do {
-            let (data, response) = try await URLSession.shared.data(from: url)
+            let request = URLRequest(
+                url: url,
+                cachePolicy: .returnCacheDataElseLoad,
+                timeoutInterval: 5
+            )
+            let (data, response) = try await URLSession.shared.data(for: request)
             guard let http = response as? HTTPURLResponse, (200...299).contains(http.statusCode) else {
                 return nil
             }

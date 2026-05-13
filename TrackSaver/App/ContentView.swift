@@ -2,24 +2,21 @@ import SwiftUI
 
 struct RootView: View {
     @AppStorage("hasCompletedWalkthrough") private var hasCompletedWalkthrough = false
-    @AppStorage("SpotifyLoggedIn") private var spotifyLoggedIn = false
-    @AppStorage("AccountUserId") private var accountUserId: String = ""
-    @AppStorage("AccountDisplayName") private var accountDisplayName: String = ""
-    @AppStorage("AccountAvatarURL") private var accountAvatarURL: String = ""
+    @AppStorage("SpotifyLoggedIn", store: SharedDefaults.store) private var spotifyLoggedIn = false
 
     @State private var isCheckingToken = true
 
     var body: some View {
         Group {
-            if !hasCompletedWalkthrough {
+            if isCheckingToken {
+                ProgressView("Prüfe Anmeldung…")
+            } else if spotifyLoggedIn {
+                MainView()
+            } else if !hasCompletedWalkthrough {
                 WalkthroughView(
                     isComplete: $hasCompletedWalkthrough,
                     isReturningUser: false
                 )
-            } else if isCheckingToken {
-                ProgressView("Prüfe Anmeldung…")
-            } else if spotifyLoggedIn {
-                MainView()
             } else {
                 WalkthroughView(
                     isComplete: $hasCompletedWalkthrough,
@@ -28,18 +25,46 @@ struct RootView: View {
             }
         }
         .task { await checkSessionOnLaunch() }
+        .task { await NotificationHelper.requestAuthorizationFromActiveApp() }
     }
 
     private func checkSessionOnLaunch() async {
+        SharedDefaults.migrateDefaultPlaylistIdIfNeeded()
+        SharedDefaults.migrateLegacyAccountIfNeeded()
+        CloudAccountSyncService.shared.refreshFromCloud()
         defer { isCheckingToken = false }
+
+        let keychain = KeychainStore()
+        let hasTokens = keychain.hasAuthTokens()
+        guard spotifyLoggedIn || hasTokens else { return }
+
+        if spotifyLoggedIn && !hasTokens {
+            await waitForSyncedTokens()
+            guard keychain.hasAuthTokens() else { return }
+        }
+
         do {
             let me = try await SpotifyAPI.shared.fetchMe()
-            accountUserId = me.id
-            accountDisplayName = me.display_name ?? ""
-            accountAvatarURL = me.images?.first?.url ?? ""
-            spotifyLoggedIn = true
+            CloudAccountSyncService.shared.updateLoggedInAccount(
+                userId: me.id,
+                displayName: me.display_name ?? "",
+                avatarURL: me.images?.first?.url ?? ""
+            )
+            hasCompletedWalkthrough = true
         } catch {
-            spotifyLoggedIn = false
+            if let apiError = error as? SpotifyAPIError, case .unauthorized = apiError {
+                CloudAccountSyncService.shared.logout()
+            }
+        }
+    }
+
+    private func waitForSyncedTokens() async {
+        let keychain = KeychainStore()
+        for _ in 0..<12 {
+            if keychain.hasAuthTokens() {
+                return
+            }
+            try? await Task.sleep(for: .milliseconds(500))
         }
     }
 }

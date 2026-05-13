@@ -1,0 +1,4 @@
+Target dependency graph (2 targets)
+Target 'TrackSaver' in project 'TrackSaver'
+➜ Explicit dependency on target 'TrackSaverWidgetExtension' in project 'TrackSaver'
+Target 'TrackSaverWidgetExtension' in project 'TrackSaver' (no dependencies)

@@ -1,0 +1,23 @@
+{
+  "/Users/dyonisosfergadiotis/Projekte/TrackSaver/TrackSaver/App/TrackSaverApp.swift" : {
+    "const-values" : "/Users/dyonisosfergadiotis/Projekte/TrackSaver/build/Build/Intermediates.noindex/TrackSaver.build/Debug-iphoneos/TrackSaver.build/Objects-normal/arm64/TrackSaverApp.swiftconstvalues",
+    "dependencies" : "/Users/dyonisosfergadiotis/Projekte/TrackSaver/build/Build/Intermediates.noindex/TrackSaver.build/Debug-iphoneos/TrackSaver.build/Objects-normal/arm64/TrackSaverApp.d",
+    "diagnostics" : "/Users/dyonisosfergadiotis/Projekte/TrackSaver/build/Build/Intermediates.noindex/TrackSaver.build/Debug-iphoneos/TrackSaver.build/Objects-normal/arm64/TrackSaverApp.dia",
+    "object" : "/Users/dyonisosfergadiotis/Projekte/TrackSaver/build/Build/Intermediates.noindex/TrackSaver.build/Debug-iphoneos/TrackSaver.build/Objects-normal/arm64/TrackSaverApp.o",
+    "swift-dependencies" : "/Users/dyonisosfergadiotis/Projekte/TrackSaver/build/Build/Intermediates.noindex/TrackSaver.build/Debug-iphoneos/TrackSaver.build/Objects-normal/arm64/TrackSaverApp.swiftdeps"
+  },
+  "/Users/dyonisosfergadiotis/Projekte/TrackSaver/TrackSaver/Intents/AddCurrentTrackIntent.swift" : {
+    "const-values" : "/Users/dyonisosfergadiotis/Projekte/TrackSaver/build/Build/Intermediates.noindex/TrackSaver.build/Debug-iphoneos/TrackSaver.build/Objects-normal/arm64/AddCurrentTrackIntent.swiftconstvalues",
+    "dependencies" : "/Users/dyonisosfergadiotis/Projekte/TrackSaver/build/Build/Intermediates.noindex/TrackSaver.build/Debug-iphoneos/TrackSaver.build/Objects-normal/arm64/AddCurrentTrackIntent.d",
+    "diagnostics" : "/Users/dyonisosfergadiotis/Projekte/TrackSaver/build/Build/Intermediates.noindex/TrackSaver.build/Debug-iphoneos/TrackSaver.build/Objects-normal/arm64/AddCurrentTrackIntent.dia",
+    "object" : "/Users/dyonisosfergadiotis/Projekte/TrackSaver/build/Build/Intermediates.noindex/TrackSaver.build/Debug-iphoneos/TrackSaver.build/Objects-normal/arm64/AddCurrentTrackIntent.o",
+    "swift-dependencies" : "/Users/dyonisosfergadiotis/Projekte/TrackSaver/build/Build/Intermediates.noindex/TrackSaver.build/Debug-iphoneos/TrackSaver.build/Objects-normal/arm64/AddCurrentTrackIntent.swiftdeps"
+  },
+  "/Users/dyonisosfergadiotis/Projekte/TrackSaver/TrackSaver/Intents/SaveCurrentTrackIntent.swift" : {
+    "const-values" : "/Users/dyonisosfergadiotis/Projekte/TrackSaver/build/Build/Intermediates.noindex/TrackSaver.build/Debug-iphoneos/TrackSaver.build/Objects-normal/arm64/SaveCurrentTrackIntent.swiftconstvalues",
+    "dependencies" : "/Users/dyonisosfergadiotis/Projekte/TrackSaver/build/Build/Intermediates.noindex/TrackSaver.build/Debug-iphoneos/TrackSaver.build/Objects-normal/arm64/SaveCurrentTrackIntent.d",
+    "diagnostics" : "/Users/dyonisosfergadiotis/Projekte/TrackSaver/build/Build/Intermediates.noindex/TrackSaver.build/Debug-iphoneos/TrackSaver.build/Objects-normal/arm64/SaveCurrentTrackIntent.dia",
+    "object" : "/Users/dyonisosfergadiotis/Projekte/TrackSaver/build/Build/Intermediates.noindex/TrackSaver.build/Debug-iphoneos/TrackSaver.build/Objects-normal/arm64/SaveCurrentTrackIntent.o",
+    "swift-dependencies" : "/Users/dyonisosfergadiotis/Projekte/TrackSaver/build/Build/Intermediates.noindex/TrackSaver.build/Debug-iphoneos/TrackSaver.build/Objects-normal/arm64/SaveCurrentTrackIntent.swiftdeps"
+  }
+}

@@ -1,0 +1,88 @@
+{
+  "source": "/Users/dyonisosfergadiotis/Projekte/TrackSaver/TrackSaver/UI/Views/MainView.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "Lade Playlists…",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 238
+        }
+      },
+      {
+        "comment": "",
+        "key": "Lade Playlists…",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 292
+        }
+      },
+      {
+        "comment": "",
+        "key": "TrackSaver",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 420
+        }
+      },
+      {
+        "comment": "",
+        "key": "Löschen",
+        "location": {
+          "startingColumn": 35,
+          "startingLine": 1070
+        }
+      },
+      {
+        "comment": "",
+        "key": "Noch nichts gespeichert. Rechtsklick speichert sofort, Linksklick zeigt die Historie.",
+        "location": {
+          "startingColumn": 24,
+          "startingLine": 1094
+        }
+      },
+      {
+        "comment": "",
+        "key": "Noch nichts gespeichert. Nutze „Sichern“ in der Leiste unten.",
+        "location": {
+          "startingColumn": 24,
+          "startingLine": 1095
+        }
+      },
+      {
+        "comment": "",
+        "key": "Löschen",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 1153
+        }
+      },
+      {
+        "comment": "",
+        "key": "In Spotify öffnen",
+        "location": {
+          "startingColumn": 50,
+          "startingLine": 1286
+        }
+      },
+      {
+        "comment": "",
+        "key": "Playlist",
+        "location": {
+          "startingColumn": 38,
+          "startingLine": 1266
+        }
+      },
+      {
+        "comment": "",
+        "key": "·",
+        "location": {
+          "startingColumn": 34,
+          "startingLine": 1269
+        }
+      }
+    ]
+  },
+  "version": 1
+}

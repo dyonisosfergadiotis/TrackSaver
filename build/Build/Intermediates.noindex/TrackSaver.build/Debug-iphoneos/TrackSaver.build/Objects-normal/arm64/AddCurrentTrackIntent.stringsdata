@@ -1,0 +1,24 @@
+{
+  "source": "/Users/dyonisosfergadiotis/Projekte/TrackSaver/TrackSaver/Intents/AddCurrentTrackIntent.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "TrackSaver: Aktuellen Song speichern",
+        "location": {
+          "startingColumn": 49,
+          "startingLine": 4
+        }
+      },
+      {
+        "comment": "",
+        "key": "Legacy-Alias für den TrackSaver-Save-Intent.",
+        "location": {
+          "startingColumn": 27,
+          "startingLine": 8
+        }
+      }
+    ]
+  },
+  "version": 1
+}
